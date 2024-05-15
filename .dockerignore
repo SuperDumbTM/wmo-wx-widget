@@ -1,0 +1,20 @@
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+# vscode
+.vscode
+
+# git
+README.md
+.gitignore
+.git/*
