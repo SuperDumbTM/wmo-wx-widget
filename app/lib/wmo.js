@@ -56,12 +56,38 @@ const https = require("https");
  */
 
 /**
+ * @typedef {Object} Wind
+ * @property {string} direction - The wind direction.
+ * @property {number|null} speed - The wind speed (km/h).
+ */
+
+/**
+ * @typedef {Object} Sun
+ * @property {Date} rise - The sunrise time.
+ * @property {Date} set - The sunset time.
+ */
+
+/**
  * @typedef {Object} Forecast
  * @property {string} date - The date for the forecast.
  * @property {string} description - A description of the forecast.
  * @property {string} weather - The name of the weather condition.
  * @property {Temperature} temp - Tempreature forecasts.
  * @property {string} icon - The URL to the logo of the weather condition.
+ */
+
+/**
+ * @typedef {Object} PresentWeather
+ * @property {Date|null} issueAt - The issue for the weather report.
+ * @property {number|null} temp - The current tempreature.
+ * @property {number} tempUnit - The unit of the current tempreature.
+ * @property {number|null} rh - The current humidity.
+ * @property {string} weather - The name of the weather condition.
+ * @property {string|null} icon - The URL to the logo of the weather condition.
+ * @property {Wind|null} wind - The current wind.
+ * @property {Sun} sun - The timings realated to the sun.
+ *
+ *
  */
 
 /**
@@ -73,25 +99,28 @@ const https = require("https");
 const wmoUrl = "https://worldweather.wmo.int";
 
 /**
- * @param {int} id
- * @param {Date} date
+ * @param {string} id Four digit weather icon
+ * @param {boolean} dnAware Whether to return the icon should respect day/night.
  * @returns {string}
  */
-function wxIconUrl(id, date) {
-  let icon = String(id).slice(0, 2);
+function wxIconUrl(id, dnAware) {
+  // ***** Four Digit Icon Code *****
+  // xxyy
+  // xx: icon ID (see: https://worldweather.wmo.int/en/wxicons.html)
+  // yy: 01 = a or 02 = b
+  //    There a and b version (day and night) for icons which the ID is between 21 to 25.
+  //
+  let iconId = String(id).slice(0, id.length - 2);
+  let dn = id.slice(-2);
 
-  if (id >= 2100 && id < 2600) {
-    crrtTime = new Date();
-    if (
-      isSameDay(crrtTime, date) &&
-      (crrtTime.getHours() < 4 || crrtTime.getHours() > 18)
-    ) {
-      icon += "b";
+  if (parseInt(iconId) >= 21 && parseInt(iconId) <= 25) {
+    if (dnAware) {
+      iconId += dn == "01" ? "a" : "b";
     } else {
-      icon += "a";
+      iconId += "a";
     }
   }
-  return `${wmoUrl}/images/${icon}.png`;
+  return `${wmoUrl}/images/i${iconId}.png`;
 }
 
 /**
@@ -154,10 +183,7 @@ function forecasts(cityId, locale, unit) {
                 min: unit == "C" ? forecasts[k].minTemp : forecasts[k].minTempF,
                 max: unit == "C" ? forecasts[k].maxTemp : forecasts[k].maxTempF,
               },
-              icon: wxIconUrl(
-                forecasts[k].weatherIcon,
-                new Date(Date.parse(forecasts[k].forecastDate)),
-              ),
+              icon: wxIconUrl(forecasts[k].weatherIcon.toString(), false),
             })),
           });
         });
@@ -171,7 +197,7 @@ function forecasts(cityId, locale, unit) {
  * @param {string|number} cityId
  * @param {Locale} locale
  * @param {TempUnit} unit
- * @returns {}
+ * @returns {Promise<PresentWeather>}
  */
 function present(cityId, locale, unit) {
   return new Promise(function (resolve, reject) {
@@ -186,11 +212,63 @@ function present(cityId, locale, unit) {
         res.on("end", () => {
           body = JSON.parse(body);
 
-          resolve(
-            Object.entries(body.present).filter(
-              ([k, v]) => v.cityId == cityId,
-            )[0][1],
-          );
+          let rp = Object.entries(body.present).filter(
+            ([k, v]) => v.cityId == cityId,
+          )[0][1];
+
+          if (!rp) {
+            throw new Error(`No data for the city (id: ${cityId})`);
+          }
+
+          resolve({
+            issueAt: rp.issue
+              ? new Date(
+                  rp.issue.slice(0, 4),
+                  rp.issue.slice(5, 6),
+                  rp.issue.slice(7, 8),
+                  rp.issue.slice(9, 10),
+                  rp.issue.slice(11, 12),
+                )
+              : null,
+            temp:
+              rp.temp !== ""
+                ? unit == "C"
+                  ? rp.temp
+                  : Math.round(
+                      ((rp.temp * 9) / 5 + 32 + Number.EPSILON) * 100,
+                    ) / 100
+                : null,
+            tempUnit: unit,
+            rh: rp.rh || null,
+            weather: rp.wxdesc,
+            icon: rp.iconNum !== "" ? wxIconUrl(rp.iconNum, true) : null,
+            wind:
+              rp.wd !== "" && rp.ws !== ""
+                ? {
+                    direction: rp.wd,
+                    speed:
+                      rp.ws !== ""
+                        ? Math.round(parseFloat(rp.ws) * 10) / 10
+                        : null,
+                  }
+                : null,
+            sun: {
+              rise: new Date(
+                rp.sundate.slice(0, 4),
+                rp.sundate.slice(5, 6),
+                rp.sundate.slice(7, 8),
+                rp.sunrise.slice(0, 2),
+                rp.sunrise.slice(3, 4),
+              ),
+              set: new Date(
+                rp.sundate.slice(0, 4),
+                rp.sundate.slice(5, 6),
+                rp.sundate.slice(7, 8),
+                rp.sunset.slice(0, 2),
+                rp.sunset.slice(3, 4),
+              ),
+            },
+          });
         });
       })
       .on("error", reject);
@@ -259,7 +337,7 @@ function cities(locale) {
  * @returns {City}
  */
 async function city(cityId, locale) {
-  return (await cities(locale)).filter((v, k) => v.cityId === cityId);
+  return (await cities(locale)).filter((v, k) => v.id === cityId);
 }
 
-module.exports = {forecasts, present, cities};
+module.exports = {forecasts, present, cities, city};
