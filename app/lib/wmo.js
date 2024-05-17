@@ -78,6 +78,7 @@ const https = require("https");
 
 /**
  * @typedef {Object} PresentWeather
+ * @property {City} city - The querying city's details.
  * @property {Date|null} issueAt - The issue for the weather report.
  * @property {number|null} temp - The current tempreature.
  * @property {number} tempUnit - The unit of the current tempreature.
@@ -209,7 +210,7 @@ function present(cityId, locale, unit) {
           body += chunk;
         });
 
-        res.on("end", () => {
+        res.on("end", async () => {
           body = JSON.parse(body);
 
           let rp = Object.entries(body.present).filter(
@@ -221,6 +222,7 @@ function present(cityId, locale, unit) {
           }
 
           resolve({
+            city: await city(cityId, locale),
             issueAt: rp.issue
               ? new Date(
                   rp.issue.slice(0, 4),
@@ -241,7 +243,10 @@ function present(cityId, locale, unit) {
             tempUnit: unit,
             rh: rp.rh || null,
             weather: rp.wxdesc,
-            icon: rp.iconNum !== "" ? wxIconUrl(rp.iconNum, true) : null,
+            icon:
+              rp.iconNum !== ""
+                ? wxIconUrl(rp.iconNum, true)
+                : "/images/question_mark.png",
             wind:
               rp.wd !== "" && rp.ws !== ""
                 ? {
@@ -337,7 +342,7 @@ function cities(locale) {
  * @returns {City}
  */
 async function city(cityId, locale) {
-  return (await cities(locale)).filter((v, k) => v.id === cityId);
+  return (await cities(locale)).find((el) => el.id == cityId);
 }
 
 module.exports = {forecasts, present, cities, city};

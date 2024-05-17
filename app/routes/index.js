@@ -9,6 +9,7 @@ router.get("/forecast/:id", async function (req, res, next) {
     forecasts(req.params.id, req.query.locale || "en", req.query.unit || "C"),
   ]);
 
+  console.log(pwx);
   return res.render("index", {
     title: "Weather for Notion",
     pwx: pwx,
