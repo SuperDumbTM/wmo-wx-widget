@@ -11,8 +11,6 @@ router.get("/forecast/:id", async function (req, res, next) {
     forecasts(req.params.id, locale || "en", req.query.unit || "C"),
   ]);
 
-  console.log(fc.forecasts);
-
   return res.render("index", {
     title: "Weather for Notion",
     locale: locale,
