@@ -16,69 +16,81 @@
             border-radius: 5px;
         }
 
-        img.wx-icon{
-            width: 80px;
-            height: 60px;
+        .wx-icon{
+            width: 70px;
+            height: 50px;
+        }
+
+        .wx-icon.wx-icon-sm{
+            width: 60px;
+            height: 40px;
         }
     </style>
 </head>
 
 <body>    
     <div class="container mt-5">
-        <div class="d-none d-lg-flex flex-row justify-content-around round-border">
+        <div class="d-none d-lg-flex flex-row justify-content-around align-items-center round-border">
             <div class="d-flex">
                 <div class="d-flex flex-column align-items-center">
                     <div class="d-flex">
-                        <span class="text-muted">
+                        <span class="text-secondary">
                             <i class="bi bi-geo"></i>
                             <span class="me-1">
-                                <%= pwx.city.name %>, <%= pwx.city.country.name %>
+                                <%= pwx.city.name %>
                             </span>
                         </span>
                     </div>
 
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex align-items-center my-1">
                         <img class="wx-icon" src="<%= pwx.icon %>">
-                        <span class="fs-3 fw-bold m-auto">
-                            <%= pwx.temp %>°<%= pwx.tempUnit %>
+                        <span class="fw-bold">
+                            <%= pwx.weather %>
                         </span>
                     </div>
 
-                    <div class="d-flex">
-                        <span class="text-muted">
-                            <i class="bi bi-geo"></i>
-                            <span class="me-1">
-                                <%= pwx.city.name %>, <%= pwx.city.country.name %>
-                            </span>
+                    <div class="d-flex text-muted">
+                        <span class="mx-1">
+                            <i class="bi bi-thermometer-half"></i>
+                            <%= `${pwx.temp}°${pwx.tempUnit}` %>
+                        </span>
+                        <span class="mx-1">
+                            <i class="bi bi-droplet-half"></i>
+                            <%= `${pwx.rh}%` %>
                         </span>
                     </div>
                 </div>
             </div>
+
+            <div class="d-flex mx-1" style="height: 5.5rem;">
+                <div class="vr"></div>
+            </div>
+
             <% forecasts.forEach(function(wx, index) { %>
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-center w-auto">
                         <% var _d = new Date(wx.date); %>
                         <span class="text-muted me-1">
-                            <%= _d.toLocaleString('en', {weekday:'long'}).substring(0, 3).toUpperCase()%>
+                            <%= _d.toLocaleString("en", {weekday:'long'}).substring(0, 3).toUpperCase()%>
                         </span>
                         <span>
                             <%= _d.getDate() %>
                         </span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center" style="height: 68px;">
-                        <img class="m-auto" src="<%= wx.icon %>" style="width: 4rem;">
+                        <img class="wx-icon wx-icon-sm" src="<%= wx.icon %>">
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <span class="text-primary mx-1">
+                        <span class="d-inline-flex text-primary mx-1">
                             <% if (forecasts.length < 7) { %>
-                                <i class="bi bi-thermometer-high"></i>
+                                <i class="bi bi-thermometer-low"></i>
                             <% } %>
 
                             <%= `${wx.temp.min}°${wx.temp.unit}` %>
                         </span>
-                        <span class="text-danger mx-1">
+                        <span class="d-inline-flex text-danger mx-1">
                             <% if (forecasts.length < 7) { %>
-                                <i class="bi bi-thermometer-low"></i>
+                                <i class="bi bi-thermometer-high"></i>
                             <% } %>
                             
                             <%= `${wx.temp.max}°${wx.temp.unit}` %>
@@ -86,9 +98,54 @@
                     </div>
                 </div>
             <% }) %>
+            <% if (forecasts.length == 0) { %>
+                <div class="d-flex justify-content-center w-75">
+                    <span class="text-danger">
+                        Forecast Not Available
+                    </span>
+                </div>
+            <% } %>
         </div>
 
         <div class="d-flex d-lg-none flex-column flex-nowrap">
+            <div class="d-flex flex-column align-items-center my-1 round-border">
+                <div class="d-flex">
+                    <span class="text-secondary">
+                        <i class="bi bi-geo"></i>
+                        <span class="me-1">
+                            <%= pwx.city.name %>
+                        </span>
+                    </span>
+                </div>
+
+                <div class="d-flex justify-content-around align-items-center my-1">
+                    <img class="wx-icon" src="<%= pwx.icon %>">
+
+                    <span class="fw-bold text-center">
+                        <%= pwx.weather %>
+                    </span>
+
+                    <div class="d-flex mx-2" style="height: 2.5rem;">
+                        <div class="vr"></div>
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <div class="d-flex my-1">
+                            <span class="text-muted">
+                                <i class="bi bi-thermometer-half"></i>
+                                <%= `${pwx.temp}°${pwx.tempUnit}` %>
+                            </span>
+                        </div>
+                        <div class="d-flex my-1">
+                            <span class="text-muted">
+                                <i class="bi bi-droplet-half"></i>
+                                <%= `${pwx.rh}%` %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <% forecasts.forEach(function(wx, index) { %>
                 <div class="d-flex flex-row my-1 round-border">
                     <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center">
@@ -104,17 +161,25 @@
                         <img src="<%= wx.icon %>" style="width: 50px;">
                     </div>
                     <div class="d-flex justify-content-center align-items-center flex-fill">
-                        <span class="text-primary">
-                            <i class="bi bi-thermometer-high"></i>
+                        <span class="text-primary mx-1">
+                            <i class="bi bi-thermometer-low"></i>
                             <%= `${wx.temp.min}°${wx.temp.unit}` %>
                         </span>
-                        <span class="text-danger">
-                            <i class="bi bi-thermometer-low"></i>
+                        <span class="text-danger mx-1">
+                            <i class="bi bi-thermometer-high"></i>
                             <%= `${wx.temp.max}°${wx.temp.unit}` %>
                         </span>
                     </div>
                 </div>
             <% }) %>
+            <% if (forecasts.length == 0) { %>
+                <div class="d-flex flex-row justify-content-center align-items-center my-1 round-border" style="height: 5rem;">
+                    <span class="text-danger">
+                        Forecast Not Available
+                    </span>
+                </div>
+            <% } %>
+
         </div>
     </div>
 

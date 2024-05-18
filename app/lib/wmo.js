@@ -100,6 +100,11 @@ const https = require("https");
 const wmoUrl = "https://worldweather.wmo.int";
 
 /**
+ * @type {Map<Locale, CityCache>}
+ */
+let cityCache = new Map();
+
+/**
  * @param {string} id Four digit weather icon
  * @param {boolean} dnAware Whether to return the icon should respect day/night.
  * @returns {string}
@@ -121,6 +126,7 @@ function wxIconUrl(id, dnAware) {
       iconId += "a";
     }
   }
+
   return `${wmoUrl}/images/i${iconId}.png`;
 }
 
@@ -285,55 +291,66 @@ function present(cityId, locale, unit) {
  * @param {Locale} locale
  * @returns {Promise<Array<City>>}
  */
-function cities(locale) {
-  return new Promise(function (resolve, reject) {
-    https
-      .get(
-        `https://worldweather.wmo.int/${locale}/json/Country_${locale}.xml`,
-        (res) => {
-          let body = "";
+async function cities(locale) {
+  if (
+    !cityCache.has(locale) ||
+    (cityCache.has(locale) &&
+      Date.now() - cityCache.get(locale).lastUpdate > 1209600000)
+  ) {
+    // cache not exists or older than two weeks
+    cityCache.set(locale, {
+      lastUpdate: Date.now(),
+      data: await new Promise(function (resolve, reject) {
+        https
+          .get(
+            `https://worldweather.wmo.int/${locale}/json/Country_${locale}.xml`,
+            (res) => {
+              let body = "";
 
-          res.on("data", (chunk) => {
-            body += chunk;
-          });
+              res.on("data", (chunk) => {
+                body += chunk;
+              });
 
-          res.on("end", () => {
-            body = JSON.parse(body);
+              res.on("end", () => {
+                body = JSON.parse(body);
 
-            /** @type {Array<City>} */
-            let cities_ = [];
+                /** @type {Array<City>} */
+                let cities_ = [];
 
-            for (const [_, country] of Object.entries(body.member)) {
-              /** @type {Country} */
-              let c = {
-                id: country.memId,
-                name: country.memName,
-                orgName: country.orgName,
-                logo: country.logo
-                  ? wmoUrl + `/images/logo/${country.logo}`
-                  : "",
-                url: country.url,
-              };
+                for (const [_, country] of Object.entries(body.member)) {
+                  /** @type {Country} */
+                  let c = {
+                    id: country.memId,
+                    name: country.memName,
+                    orgName: country.orgName,
+                    logo: country.logo
+                      ? wmoUrl + `/images/logo/${country.logo}`
+                      : "",
+                    url: country.url,
+                  };
 
-              for (let city of country.city || []) {
-                cities_.push({
-                  id: city.cityId,
-                  name: city.cityName,
-                  country: c,
-                  latitude: city.cityLatitude,
-                  longitude: city.cityLongitude,
-                  forecast: city.forecast === "Y",
-                  climate: city.climate === "Y",
-                  isCapital: city.isCapital,
-                });
-              }
-            }
-            resolve(cities_);
-          });
-        },
-      )
-      .on("error", reject);
-  });
+                  for (let city of country.city || []) {
+                    cities_.push({
+                      id: city.cityId,
+                      name: city.cityName,
+                      country: c,
+                      latitude: city.cityLatitude,
+                      longitude: city.cityLongitude,
+                      forecast: city.forecast === "Y",
+                      climate: city.climate === "Y",
+                      isCapital: city.isCapital,
+                    });
+                  }
+                }
+                resolve(cities_);
+              });
+            },
+          )
+          .on("error", reject);
+      }),
+    });
+  }
+  return cityCache.get(locale).data;
 }
 
 /**
