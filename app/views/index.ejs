@@ -52,11 +52,11 @@
                     <div class="d-flex text-muted">
                         <span class="mx-1">
                             <i class="bi bi-thermometer-half"></i>
-                            <%= `${pwx.temp}°${pwx.tempUnit}` %>
+                            <%= `${pwx.temp || "--"}°${pwx.tempUnit}` %>
                         </span>
                         <span class="mx-1">
                             <i class="bi bi-droplet-half"></i>
-                            <%= `${pwx.rh}%` %>
+                            <%= `${pwx.rh || "--"}%` %>
                         </span>
                     </div>
                 </div>
