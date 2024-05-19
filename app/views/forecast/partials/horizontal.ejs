@@ -1,0 +1,85 @@
+<div class="d-flex flex-row justify-content-around align-items-center round-border">
+    <div class="d-flex mx-1 mx-lg-0">
+        <div class="d-flex flex-column align-items-center">
+            <div class="d-flex">
+                <span class="text-secondary">
+                    <i class="bi bi-geo"></i>
+                    <span class="me-1">
+                        <%= pwx.city.name %>
+                    </span>
+                </span>
+            </div>
+
+            <div class="d-flex align-items-center my-1">
+                <img class="wx-icon" src="<%= pwx.icon %>">
+                <span class="fw-bold fs-4">
+                    <%= `${pwx.temp || "--"}°${pwx.tempUnit}` %>
+                </span>
+            </div>
+
+            <div class="d-flex flex-column flex-lg-row text-muted">
+                <span class="mx-1">
+                    <i class="bi bi-droplet-half"></i>
+                    <%= `${pwx.rh || "--"}%` %>
+                </span>
+                <span class="mx-1">
+                    <i class="bi bi-wind"></i>
+                    <% if (pwx.wind) { %>
+                        <%= `${pwx.wind.direction} ${pwx.wind.speed || "--"} km/h` %>
+                    <% } else { %>
+                        --
+                    <% } %>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex mx-1" style="height: 5.5rem;">
+        <div class="vr"></div>
+    </div>
+
+    <% forecasts.forEach(function(wx, index) { %>
+        <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center w-auto">
+                <% var _d = new Date(wx.date); %>
+
+                <% if (query.datetime == "weekday") { %>
+                    <span class="text-muted me-1">
+                        <%= _d.toLocaleString(query.locale, {weekday:'long'})%>
+                    </span>
+                <% } else { %>
+                    <span>
+                        <%= `${_d.getDate()}/${_d.getMonth() + 1}` %>
+                    </span>
+                <% } %>
+                
+            </div>
+            <div class="d-flex justify-content-center align-items-center" style="height: 68px;">
+                <img class="wx-icon wx-icon-sm" src="<%= wx.icon %>" title="<%= wx.weather %>">
+            </div>
+            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                <span class="mx-1 text-primary">
+                    <% if (forecasts.length < 7) { %>
+                        <i class="bi bi-thermometer-low"></i>
+                    <% } %>
+
+                    <%= `${wx.temp.min}°${wx.temp.unit}` %>
+                </span>
+                <span class="mx-1 text-danger">
+                    <% if (forecasts.length < 7) { %>
+                        <i class="bi bi-thermometer-high"></i>
+                    <% } %>
+                    
+                    <%= `${wx.temp.max}°${wx.temp.unit}` %>
+                </span>
+            </div>
+        </div>
+    <% }) %>
+    <% if (forecasts.length == 0) { %>
+        <div class="d-flex justify-content-center w-75">
+            <span class="text-danger">
+                Forecast Not Available
+            </span>
+        </div>
+    <% } %>
+</div>

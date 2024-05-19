@@ -252,7 +252,7 @@ function present(cityId, locale, unit) {
             icon:
               rp.iconNum !== ""
                 ? wxIconUrl(rp.iconNum, true)
-                : "/images/question_mark.png",
+                : "/static/images/question_mark.png",
             wind:
               rp.wd !== "" && rp.ws !== ""
                 ? {

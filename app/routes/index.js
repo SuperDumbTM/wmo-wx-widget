@@ -1,22 +1,31 @@
 const express = require("express");
-const router = express.Router();
+const countryData = require("country-data");
 const {forecasts, present, cities, city} = require("../lib/wmo");
+
+const router = express.Router();
 
 /* GET home page. */
 router.get("/forecast/:id", async function (req, res, next) {
-  let locale = req.query.locale || "en";
+  req.query.locale = req.query.locale || "en";
+  req.query.unit = req.query.unit || "C";
+  req.query.datetime = req.query.datetime || "weekday";
+  req.query.days = req.query.days || 6;
 
   const [pwx, fc] = await Promise.all([
-    present(req.params.id, locale, req.query.unit || "C"),
-    forecasts(req.params.id, locale || "en", req.query.unit || "C"),
+    present(req.params.id, req.query.locale, req.query.unit),
+    forecasts(req.params.id, req.query.locale || "en", req.query.unit),
   ]);
 
-  return res.render("index", {
+  // TODO
+  // req.query.locale =
+  //   countryData.countries[req.query.locale.toUpperCase()].alpha3;
+
+  return res.render("forecast/index", {
     title: "Weather for Notion",
-    locale: locale,
+    query: req.query,
     pwx: pwx,
     fc: fc,
-    forecasts: fc.forecasts.slice(0, req.query.days || 6),
+    forecasts: fc.forecasts.slice(0, req.query.days),
   });
 });
 
