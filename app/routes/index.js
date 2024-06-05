@@ -10,6 +10,7 @@ router.get("/forecast/:id", async function (req, res, next) {
   req.query.unit = req.query.unit || "C";
   req.query.datetime = req.query.datetime || "weekday";
   req.query.days = req.query.days || 6;
+  req.query.aligh = req.query.aligh || "start";
 
   const [pwx, fc] = await Promise.all([
     present(req.params.id, req.query.locale, req.query.unit),
