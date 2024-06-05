@@ -43,7 +43,7 @@
 
     <% forecasts.forEach(function(wx, index) { %>
         <div class="d-flex flex-row my-1 round-border">
-            <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center">
+            <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center" style="min-width: 5.5rem;">
                 <% var _d = new Date(wx.date); %>
                 <span class="text-muted" style="font-size: 0.57rem;">
                     <%= _d.toLocaleString(query.locale, {weekday:'long'})%>
