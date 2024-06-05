@@ -45,7 +45,7 @@
 
                 <% if (query.datetime == "weekday") { %>
                     <span class="text-muted me-1">
-                        <%= _d.toLocaleString(query.locale, {weekday:'long'})%>
+                        <%= _d.toLocaleString(iso639, {weekday:'long'})%>
                     </span>
                 <% } else { %>
                     <span>

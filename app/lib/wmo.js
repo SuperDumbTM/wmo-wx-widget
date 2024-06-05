@@ -1,8 +1,5 @@
 const https = require("https");
-
-/**
- * @typedef  {('ar'|'en'|'tc'|'zh'|'fr'|'de'|'it'|'kr'|'pl'|'pt'|'ru'|'es')} Locale
- */
+const locale = require("./locale.js");
 
 /**
  * @typedef  {('C'|'F')} TempUnit
@@ -100,7 +97,7 @@ const https = require("https");
 const wmoUrl = "https://worldweather.wmo.int";
 
 /**
- * @type {Map<Locale, CityCache>}
+ * @type {Map<locale.WmoLocale, CityCache>}
  */
 let cityCache = new Map();
 
@@ -145,7 +142,7 @@ function isSameDay(d1, d2) {
 
 /**
  * @param {string|number} cityId
- * @param {Locale} locale
+ * @param {locale.WmoLocale} locale
  * @param {TempUnit} unit
  * @returns {Promise<FutureWeather>}
  */
@@ -202,7 +199,7 @@ function forecasts(cityId, locale, unit) {
 /**
  *
  * @param {string|number} cityId
- * @param {Locale} locale
+ * @param {locale.WmoLocale} locale
  * @param {TempUnit} unit
  * @returns {Promise<PresentWeather>}
  */
@@ -288,7 +285,7 @@ function present(cityId, locale, unit) {
 
 /**
  *
- * @param {Locale} locale
+ * @param {locale.WmoLocale} locale
  * @returns {Promise<Array<City>>}
  */
 async function cities(locale) {
@@ -355,7 +352,7 @@ async function cities(locale) {
 
 /**
  * @param {string|number} cityId
- * @param {Locale} locale
+ * @param {locale.WmoLocale} locale
  * @returns {City}
  */
 async function city(cityId, locale) {
