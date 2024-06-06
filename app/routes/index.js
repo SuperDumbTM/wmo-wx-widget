@@ -1,7 +1,5 @@
 const express = require("express");
-const countryData = require("country-data");
-const {forecasts, present, cities, city} = require("../lib/wmo");
-const {wmoToIso639} = require("../lib/locale");
+const wmo = require("../lib/wmo");
 
 const router = express.Router();
 
@@ -13,25 +11,25 @@ router.get("/forecast/:id", async function (req, res, next) {
   req.query.days = req.query.days || 6;
   req.query.aligh = req.query.aligh || "start";
 
-  const iso639 = wmoToIso639(req.query.locale);
+  if (!wmo.locales.includes(req.query.locale)) {
+    req.query.locale = "en";
+  }
 
-  const [pwx, fc] = await Promise.all([
-    present(req.params.id, req.query.locale, req.query.unit),
-    forecasts(req.params.id, req.query.locale || "en", req.query.unit),
-  ]);
-
-  // TODO
-  // req.query.locale =
-  //   countryData.countries[req.query.locale.toUpperCase()].alpha3;
-
-  return res.render("forecast/index", {
-    title: "Weather for Notion",
-    query: req.query,
-    iso639: iso639,
-    pwx: pwx,
-    fc: fc,
-    forecasts: fc.forecasts.slice(0, req.query.days),
-  });
+  await Promise.all([
+    wmo.present(req.params.id, req.query.locale, req.query.unit),
+    wmo.forecasts(req.params.id, req.query.locale || "en", req.query.unit),
+  ])
+    .then(([pwx, fc]) => {
+      return res.render("forecast/index", {
+        title: "Weather for Notion",
+        query: req.query,
+        iso639: wmo.wmoToIso639(req.query.locale),
+        pwx: pwx,
+        fc: fc,
+        forecasts: fc.forecasts.slice(0, req.query.days),
+      });
+    })
+    .catch(next);
 });
 
 module.exports = router;

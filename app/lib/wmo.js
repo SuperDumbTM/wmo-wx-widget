@@ -1,5 +1,8 @@
 const https = require("https");
-const locale = require("./locale.js");
+
+/**
+ * @typedef {('ar'|'en'|'tc'|'zh'|'fr'|'de'|'it'|'kr'|'pl'|'pt'|'ru'|'es')} WmoLocale
+ */
 
 /**
  * @typedef  {('C'|'F')} TempUnit
@@ -96,10 +99,40 @@ const locale = require("./locale.js");
 
 const wmoUrl = "https://worldweather.wmo.int";
 
+const mapping = {
+  ar: "ar",
+  en: "en",
+  tc: "zh-Hant",
+  zh: "zh-Hans",
+  fr: "fr",
+  de: "de",
+  it: "it",
+  kr: "ko",
+  pl: "pl",
+  pt: "pt",
+  ru: "ru",
+  es: "es",
+};
+
 /**
- * @type {Map<locale.WmoLocale, CityCache>}
+ * List of support locales code used by WMO
+ * @type {string[]}
+ */
+const locales = Object.keys(mapping);
+
+/**
+ * @type {Map<WmoLocale, CityCache>}
  */
 let cityCache = new Map();
+
+/**
+ * Translate the locale codes used by WMO to ISO639 codes.
+ * @param {WmoLocale} locale
+ * @returns {string}
+ */
+function wmoToIso639(locale) {
+  return mapping[locale] || locale;
+}
 
 /**
  * @param {string} id Four digit weather icon
@@ -142,7 +175,7 @@ function isSameDay(d1, d2) {
 
 /**
  * @param {string|number} cityId
- * @param {locale.WmoLocale} locale
+ * @param {WmoLocale} locale
  * @param {TempUnit} unit
  * @returns {Promise<FutureWeather>}
  */
@@ -157,7 +190,12 @@ function forecasts(cityId, locale, unit) {
         });
 
         res.on("end", () => {
-          body = JSON.parse(body);
+          try {
+            body = JSON.parse(body);
+          } catch (e) {
+            console.log(e);
+            return reject(new Error("Invalid City ID"));
+          }
 
           const forecasts = body.city.forecast.forecastDay;
           resolve({
@@ -199,7 +237,7 @@ function forecasts(cityId, locale, unit) {
 /**
  *
  * @param {string|number} cityId
- * @param {locale.WmoLocale} locale
+ * @param {WmoLocale} locale
  * @param {TempUnit} unit
  * @returns {Promise<PresentWeather>}
  */
@@ -214,11 +252,20 @@ function present(cityId, locale, unit) {
         });
 
         res.on("end", async () => {
-          body = JSON.parse(body);
+          try {
+            body = JSON.parse(body);
+          } catch (e) {
+            console.log(e);
+            return reject(new Error("Invalid City ID"));
+          }
 
-          let rp = Object.entries(body.present).filter(
-            ([k, v]) => v.cityId == cityId,
-          )[0][1];
+          try {
+            var rp = Object.entries(body.present).filter(
+              ([k, v]) => v.cityId == cityId,
+            )[0][1];
+          } catch (e) {
+            return reject(new Error("Invalid City ID"));
+          }
 
           if (!rp) {
             throw new Error(`No data for the city (id: ${cityId})`);
@@ -285,7 +332,7 @@ function present(cityId, locale, unit) {
 
 /**
  *
- * @param {locale.WmoLocale} locale
+ * @param {WmoLocale} locale
  * @returns {Promise<Array<City>>}
  */
 async function cities(locale) {
@@ -352,11 +399,11 @@ async function cities(locale) {
 
 /**
  * @param {string|number} cityId
- * @param {locale.WmoLocale} locale
+ * @param {WmoLocale} locale
  * @returns {City}
  */
 async function city(cityId, locale) {
   return (await cities(locale)).find((el) => el.id == cityId);
 }
 
-module.exports = {forecasts, present, cities, city};
+module.exports = {forecasts, present, cities, city, locales, wmoToIso639};
