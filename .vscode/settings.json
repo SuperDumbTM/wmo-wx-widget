@@ -7,5 +7,6 @@
         "editor.formatOnSave": true
     },
     "prettier.trailingComma": "all",
-    "prettier.bracketSpacing": false
+    "prettier.bracketSpacing": false,
+    "git.ignoreLimitWarning": true
 }
