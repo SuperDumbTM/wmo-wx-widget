@@ -6,6 +6,10 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
     "prettier.trailingComma": "all",
     "prettier.bracketSpacing": false,
     "git.ignoreLimitWarning": true
