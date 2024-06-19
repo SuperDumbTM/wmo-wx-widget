@@ -1,18 +1,18 @@
 import * as https from "https";
 import { Locale, TempUnit } from "./enums";
-import { City, Country } from "./definition";
+import { City, Country, FutureWeather, PresentWeather } from "./definition";
 
 const wmoUrl = "https://worldweather.wmo.int";
 
 let cityCache = new Map() as Map<Locale, {
-    lastUpdate: number | null,
+    lastUpdate: number
     data: Array<City>
 }>;
 
 /**
- * Translate the locale codes used by WMO to ISO639 codes.
+ * Translate WMO locale codes used by to ISO639 codes.
  */
-function wmoToIso639(locale: Locale) {
+export function wmoToIso639(locale: Locale) {
     const mapping = {
         ar: "ar",
         en: "en",
@@ -31,13 +31,21 @@ function wmoToIso639(locale: Locale) {
     return mapping[locale] || locale;
 }
 
-function wxIconUrl(id: string, daynight: boolean) {
+/**
+ * Get the WMO icon URL by icon ID.
+ * 
+ * See: https://worldweather.wmo.int/en/wxicons.html
+ * 
+ * @param id four-digit icon ID 
+ * @param daynight Whether to display day/night variation icon (if available)
+ */
+export function wxIconUrl(id: string, daynight: boolean) {
     // ***** Four Digit Icon Code *****
     // xxyy
     // xx: icon ID (see: https://worldweather.wmo.int/en/wxicons.html)
     // yy: 01 = a or 02 = b
     //    There a and b version (day and night) for icons which the ID is between 21 to 25.
-    //
+
     let iconId = String(id).slice(0, id.length - 2);
     let dn = id.slice(-2);
   
@@ -52,51 +60,46 @@ function wxIconUrl(id: string, daynight: boolean) {
     return `${wmoUrl}/images/i${iconId}.png`;
 }
 
-function isSameDay(d1: Date, d2: Date) {
-    return (
-      d1.getDate() === d2.getDate() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getFullYear() === d2.getFullYear()
-    );
-}
-
-function forecasts(cityId: number, locale: Locale, unit: TempUnit) {
+/**
+ * Get the forecast data
+ */
+export function forecasts(cityId: number, locale: Locale, unit: TempUnit): Promise<FutureWeather> {
     return new Promise(function (resolve, reject) {
       https
         .get(`${wmoUrl}/${locale}/json/${cityId}_${locale}.xml`, (res) => {
           let response = "";
           let json: {
             city: {
-                lang: string,
-                cityName: string,
-                cityLatiude: number,
-                cityLongitude: number,
+                lang: string
+                cityName: string
+                cityLatiude: number
+                cityLongitude: number
                 cityId: number
-                isCapital: boolean,
-                stationName: string,
-                tourismURL: string,
-                tourismBoardName: string,
-                timeZone: string,
-                isDep: boolean,
+                isCapital: boolean
+                stationName: string
+                tourismURL: string
+                tourismBoardName: string
+                timeZone: string
+                isDep: boolean
                 isDST: "Y" | "N"
                 member: {
-                    memId: number,
-                    memName: string,
-                    shortMemName: string,
-                    url: string,
-                    orgName: string,
+                    memId: number
+                    memName: string
+                    shortMemName: string
+                    url: string
+                    orgName: string
                     logo: string
                     ra: number
                 },
                 forecast: {
                     issueDate: string,
                     forecastDay: Array<{
-                        forecastDate: string,
-                        wxdesc: string,
-                        weather: string,
-                        minTemp: number,
-                        maxTemp: number,
-                        minTempF: number,
+                        forecastDate: string
+                        wxdesc: string
+                        weather: string
+                        minTemp: number
+                        maxTemp: number
+                        minTempF: number
                         maxTempF: number
                         weatherIcon: number
                     }>
@@ -119,7 +122,7 @@ function forecasts(cityId: number, locale: Locale, unit: TempUnit) {
   
             const forecasts = json.city.forecast.forecastDay;
             resolve({
-              issueAt: json.city.forecast.issueDate,
+              issueAt: new Date(json.city.forecast.issueDate),
               country: {
                 id: json.city.member.memId,
                 name: json.city.member.memName,
@@ -154,7 +157,10 @@ function forecasts(cityId: number, locale: Locale, unit: TempUnit) {
     });
 }
 
-function present(cityId: number, locale: Locale, unit: TempUnit) {
+/**
+ * Get the present weather data
+ */
+export function present(cityId: number, locale: Locale, unit: TempUnit): Promise<PresentWeather> {
     return new Promise(function (resolve, reject) {
       https
         .get(`https://worldweather.wmo.int/${locale}/json/present.xml`, (res) => {
@@ -263,7 +269,7 @@ function present(cityId: number, locale: Locale, unit: TempUnit) {
     });
 }
 
-async function cities(locale: Locale) {
+export async function cities(locale: Locale) {
     if (
       !cityCache.has(locale) ||
       (cityCache.has(locale) &&
@@ -280,12 +286,26 @@ async function cities(locale: Locale) {
                 let response = "";
                 let body: {
                     member: Array<{
-                        memId: number,
-                        memName: string,
-                        orgName: string,
-                        logo: string,
-                        url: string,
-                        city: any
+                        memId: number
+                        memName: string
+                        orgName: string
+                        logo: string
+                        url: string
+                        city: Array<{
+                          cityName: string
+                          enName: string
+                          cityLatitude: string
+                          cityLongitude: string
+                          cityId: number
+                          forecast: "Y" | "N,"
+                          climate: "Y" | "N"
+                          isCapital: boolean
+                          stationName: string
+                          tourismURL: string
+                          tourismBoardName: string
+                          isDep: boolean
+                          timeZone: string
+                        }>
                     }>
                 };
   
@@ -315,8 +335,8 @@ async function cities(locale: Locale) {
                         id: city.cityId,
                         name: city.cityName,
                         country: c,
-                        latitude: city.cityLatitude,
-                        longitude: city.cityLongitude,
+                        latitude: parseFloat(city.cityLatitude),
+                        longitude: parseFloat(city.cityLongitude),
                         forecast: city.forecast === "Y",
                         climate: city.climate === "Y",
                         isCapital: city.isCapital,
@@ -334,7 +354,7 @@ async function cities(locale: Locale) {
     return cityCache.get(locale)!.data;
 }
 
-async function city(cityId: number, locale: Locale) {
+export async function city(cityId: number, locale: Locale) {
     return (await cities(locale)).find((el) => el.id == cityId);
 }
   

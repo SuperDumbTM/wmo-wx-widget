@@ -14,6 +14,6 @@ export enum Locale {
 }
 
 export enum TempUnit {
-    C,
-    F
+    C = "°C",
+    F = "°F"
 }
