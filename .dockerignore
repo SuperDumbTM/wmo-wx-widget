@@ -1,20 +1,8 @@
-# npm
+Dockerfile
+.dockerignore
 node_modules
-package-lock.json
-*.log
-*.gz
-
-# Coveralls
-.nyc_output
-coverage
-
-# Benchmarking
-benchmarks/graphs
-
-# vscode
-.vscode
-
-# git
+npm-debug.log
 README.md
-.gitignore
-.git/*
+.next
+.git
+.vscode
