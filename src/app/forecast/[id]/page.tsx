@@ -13,7 +13,12 @@ export default async function Page({
   params: {id: number};
   searchParams?: {[key: string]: any};
 }) {
-  const locale = Locale[(searchParams?.locale as keyof typeof Locale) || "En"];
+  const locale =
+    Locale[
+      (searchParams?.locale &&
+        searchParams.locale[0].toUpperCase() +
+          searchParams.locale.slice(1).toLowerCase()) as keyof typeof Locale
+    ] || Locale["En"];
   const unit = TempUnit[(searchParams?.unit as keyof typeof TempUnit) || "C"];
   const [pwx, wx] = await Promise.all([
     wmo.present(params.id, locale, unit),
