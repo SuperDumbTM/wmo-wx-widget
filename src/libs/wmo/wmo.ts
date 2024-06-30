@@ -120,7 +120,6 @@ export function forecasts(cityId: number, locale: Locale, unit: TempUnit): Promi
               return reject(new Error("Invalid City ID"));
             }
   
-            const forecasts = json.city.forecast.forecastDay;
             resolve({
               issueAt: new Date(json.city.forecast.issueDate),
               country: {
@@ -139,16 +138,16 @@ export function forecasts(cityId: number, locale: Locale, unit: TempUnit): Promi
                 timeZone: json.city.timeZone,
                 isDST: json.city.isDST != "N",
               },
-              forecasts: Object.keys(json.city.forecast.forecastDay).map((k) => ({
-                date: forecasts[k].forecastDate,
-                description: forecasts[k].wxdesc,
-                weather: forecasts[k].weather,
+              forecasts: json.city.forecast.forecastDay.map((forecast) => ({
+                date: forecast.forecastDate,
+                description: forecast.wxdesc,
+                weather: forecast.weather,
                 temp: {
                   unit: unit,
-                  min: unit == TempUnit.C ? forecasts[k].minTemp : forecasts[k].minTempF,
-                  max: unit == TempUnit.C ? forecasts[k].maxTemp : forecasts[k].maxTempF,
+                  min: unit == TempUnit.C ? forecast.minTemp : forecast.minTempF,
+                  max: unit == TempUnit.C ? forecast.maxTemp : forecast.maxTempF,
                 },
-                icon: wxIconUrl(forecasts[k].weatherIcon.toString(), false),
+                icon: wxIconUrl(forecast.weatherIcon.toString(), false),
               })),
             });
           });
@@ -211,7 +210,7 @@ export function present(cityId: number, locale: Locale, unit: TempUnit): Promise
             }
   
             resolve({
-              city: await city(cityId, locale),
+              city: (await city(cityId, locale))!,
               issueAt: rp.issue
                 ? new Date(
                     rp.issue.slice(0, 4),
