@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["worldweather.wmo.int"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "worldweather.wmo.int",
+      },
+    ],
   },
   output: "standalone",
 };
