@@ -63,7 +63,7 @@ export function wxIconUrl(id: string, daynight: boolean) {
 /**
  * Get the forecast data
  */
-export function forecasts(cityId: number, locale: Locale, unit: TempUnit): Promise<FutureWeather> {
+export function forecasts(cityId: number, locale: Locale, unit: TempUnit, days: number): Promise<FutureWeather> {
     return new Promise(function (resolve, reject) {
       https
         .get(`${wmoUrl}/${locale}/json/${cityId}_${locale}.xml`, (res) => {
@@ -148,7 +148,7 @@ export function forecasts(cityId: number, locale: Locale, unit: TempUnit): Promi
                   max: unit == TempUnit.C ? forecast.maxTemp : forecast.maxTempF,
                 },
                 icon: wxIconUrl(forecast.weatherIcon.toString(), false),
-              })),
+              })).slice(0, Math.max(Math.abs(days), 1)),
             });
           });
         })

@@ -22,7 +22,12 @@ export default async function Page({
   const unit = TempUnit[(searchParams?.unit as keyof typeof TempUnit) || "C"];
   const [pwx, wx] = await Promise.all([
     wmo.present(params.id, locale, unit),
-    wmo.forecasts(params.id, locale, unit),
+    wmo.forecasts(
+      params.id,
+      locale,
+      unit,
+      isNaN(parseInt(searchParams?.days)) ? 7 : parseInt(searchParams!.days),
+    ),
   ]);
 
   return (
