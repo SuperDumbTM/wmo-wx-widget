@@ -63,7 +63,7 @@ export default function HorizontalLayout({
               ) : (
                 <i className="bi bi-thermometer-low"></i>
               )}
-              {`${wx.temp.min}${wx.temp.unit}`}
+              {`${wx.temp.min ?? "--"}${wx.temp.unit}`}
             </span>
             <span className="text-red-600 mx-1">
               {forecast.forecasts.length >= 7 ? (
@@ -71,7 +71,7 @@ export default function HorizontalLayout({
               ) : (
                 <i className="bi bi-thermometer-high"></i>
               )}
-              {`${wx.temp.max}${wx.temp.unit}`}
+              {`${wx.temp.max ?? "--"}${wx.temp.unit}`}
             </span>
           </div>
         </div>
