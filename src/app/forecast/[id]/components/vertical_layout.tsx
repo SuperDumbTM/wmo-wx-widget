@@ -87,7 +87,7 @@ export default function VerticalLayout({
             {`${weather.temp}${weather.tempUnit}`}
           </span>
 
-          <div className="flex mx-2" style={{height: "2.5rem;"}}>
+          <div className="flex mx-2" style={{height: "2.5rem"}}>
             <div className="vr"></div>
           </div>
 

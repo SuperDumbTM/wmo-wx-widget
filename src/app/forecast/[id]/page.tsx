@@ -1,10 +1,10 @@
-import Image from "next/image";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import * as wmo from "../../../libs/wmo/wmo";
 import {Locale, TempUnit} from "@/libs/wmo/enums";
 import HorizontalLayout from "./components/horizontal_layout";
 import VerticalLayout from "./components/vertical_layout";
+import useTranslation from "next-translate/useTranslation";
 
 export default async function Page({
   params,
@@ -13,6 +13,7 @@ export default async function Page({
   params: {id: number};
   searchParams?: {[key: string]: any};
 }) {
+  const {t, lang} = useTranslation();
   const locale =
     Locale[
       (searchParams?.locale &&
