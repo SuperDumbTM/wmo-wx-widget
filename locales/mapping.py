@@ -8,9 +8,9 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 wind = {
     "N": "N",
-    "NEN": "NNE",
+    "NNE": "NNE",
     "NE": "NE",
-    "NEE": "ENE",
+    "ENE": "ENE",
     "E": "E",
     "ESE": "ESE",
     "SE": "SE",
