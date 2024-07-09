@@ -59,7 +59,7 @@ function Forecasts({
 }) {
   if (forecast.forecasts.length == 0) {
     return (
-      <div className="flex justify-center w-75">
+      <div className="flex w-75">
         <span className="text-red-600">Forecast Not Available</span>
       </div>
     );
@@ -139,7 +139,7 @@ export default function HorizontalLayout({
         <CurrentWeather weather={weather}></CurrentWeather>
       </div>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 justify-center">
         <Forecasts locale={locale} forecast={forecast}></Forecasts>
       </div>
     </div>
