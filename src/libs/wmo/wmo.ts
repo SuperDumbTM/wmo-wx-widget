@@ -1,6 +1,6 @@
 import * as https from "https";
-import { Locale, TempUnit } from "./enums";
 import { City, Country, FutureWeather, PresentWeather } from "./definition";
+import { Locale, TempUnit } from "./enums";
 
 const wmoUrl = "https://worldweather.wmo.int";
 
@@ -46,9 +46,8 @@ export function wxIconUrl(id: string, daynight: boolean) {
     // yy: 01 = a or 02 = b
     //    There a and b version (day and night) for icons which the ID is between 21 to 25.
 
-    let iconId = String(id).slice(0, id.length - 2);
+    let iconId = parseInt(id.slice(0, id.length - 2)).toString(); // remove leading zero
     let dn = id.slice(-2);
-  
     if (parseInt(iconId) >= 21 && parseInt(iconId) <= 25) {
       if (daynight) {
         iconId += dn == "01" ? "a" : "b";
@@ -56,7 +55,6 @@ export function wxIconUrl(id: string, daynight: boolean) {
         iconId += "a";
       }
     }
-  
     return `${wmoUrl}/images/i${iconId}.png`;
 }
 
