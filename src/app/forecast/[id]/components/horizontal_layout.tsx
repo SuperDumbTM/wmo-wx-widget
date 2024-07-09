@@ -3,8 +3,11 @@ import Image from "next/image";
 import {FutureWeather, PresentWeather} from "@/libs/wmo/definition";
 import {Locale} from "@/libs/wmo/enums";
 import * as wmo from "@/libs/wmo/wmo";
+import {getTranslations} from "next-intl/server";
 
-function CurrentWeather({weather}: {weather: PresentWeather}) {
+async function CurrentWeather({weather}: {weather: PresentWeather}) {
+  const t = await getTranslations("weather");
+
   return (
     <>
       <div className="flex">
@@ -22,9 +25,14 @@ function CurrentWeather({weather}: {weather: PresentWeather}) {
           alt="Weather Icon"
         ></Image>
 
-        <span className="font-bold text-2xl">
-          {`${weather.temp || "--"}${weather.tempUnit}`}
-        </span>
+        <div className="flex flex-col items-center my-1">
+          <span className="font-bold text-2xl">
+            {`${weather.temp || "--"}${weather.tempUnit}`}
+          </span>
+          <span className="text-xs">
+            {weather.weather ? t(weather.weather) : ""}
+          </span>
+        </div>
       </div>
 
       <div className="flex flex-row text-muted">
