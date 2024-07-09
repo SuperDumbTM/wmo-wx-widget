@@ -234,7 +234,7 @@ export function present(cityId: number, locale: Locale, unit: TempUnit): Promise
               icon:
                 rp.iconNum !== ""
                   ? wxIconUrl(rp.iconNum, true)
-                  : "/static/images/question_mark.png",
+                  : "/images/question_mark.png",
               wind:
                 rp.wd !== "" && rp.ws !== ""
                   ? {
