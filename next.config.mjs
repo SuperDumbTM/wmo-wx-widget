@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "worldweather.wmo.int",
       },
+      {
+        protocol: "https",
+        hostname: "github.githubassets.com",
+      },
     ],
   },
   output: "standalone",
