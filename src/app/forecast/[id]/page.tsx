@@ -42,7 +42,7 @@ export default async function Page({
       params.id,
       locale,
       unit,
-      isNaN(parseInt(searchParams?.days)) ? 7 : parseInt(searchParams!.days),
+      isNaN(parseInt(searchParams?.days)) ? 5 : parseInt(searchParams!.days),
     ),
   ]);
 
