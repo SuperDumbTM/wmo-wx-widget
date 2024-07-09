@@ -29,8 +29,7 @@ function CurrentWeather({weather}: {weather: PresentWeather}) {
 
       <div className="flex flex-row text-muted">
         <span className="mx-1">
-          <i className="bi bi-droplet-half"></i>
-          {`${weather.rh || "--"}%`}
+          <i className="bi bi-droplet-half"></i> {`${weather.rh || "--"}%`}
         </span>
         <span className="mx-1">
           <i className="bi bi-wind"></i>{" "}
