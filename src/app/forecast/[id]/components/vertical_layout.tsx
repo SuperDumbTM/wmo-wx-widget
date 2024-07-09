@@ -22,7 +22,7 @@ function CurrentWeather({weather}: {weather: PresentWeather}) {
           alt="Weather Icon"
         ></Image>
 
-        <span className="font-medium text-lg">
+        <span className="font-medium text-xl">
           {`${weather.temp || "--"}${weather.tempUnit}`}
         </span>
 
