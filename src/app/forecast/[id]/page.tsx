@@ -21,9 +21,8 @@ export default async function Page({
           searchParams.locale.slice(1).toLowerCase()) as keyof typeof Locale
     ] || Locale["En"];
   const unit =
-    TempUnit[
-      (searchParams?.unit || "C").toUpperCase() as keyof typeof TempUnit
-    ];
+    TempUnit[(searchParams?.unit).toUpperCase() as keyof typeof TempUnit] ||
+    TempUnit["C"];
   const [pwx, wx] = await Promise.all([
     wmo.present(params.id, locale, unit),
     wmo.forecasts(
