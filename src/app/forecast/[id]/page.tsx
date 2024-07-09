@@ -20,7 +20,7 @@ export default async function Page({
     ] || Locale["En"];
 
   const unit =
-    TempUnit[(searchParams?.unit).toUpperCase() as keyof typeof TempUnit] ||
+    TempUnit[searchParams?.unit?.toUpperCase() as keyof typeof TempUnit] ||
     TempUnit["C"];
 
   const [pwx, wx] = await Promise.all([
