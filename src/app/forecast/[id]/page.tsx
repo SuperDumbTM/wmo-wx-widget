@@ -4,6 +4,19 @@ import * as wmo from "@/libs/wmo/wmo";
 import {Locale, TempUnit} from "@/libs/wmo/enums";
 import HorizontalLayout from "./components/horizontal_layout";
 import VerticalLayout from "./components/vertical_layout";
+import {Metadata, ResolvingMetadata} from "next";
+
+export async function generateMetadata({
+  params,
+  parent,
+}: {
+  params: {id: number};
+  parent: ResolvingMetadata;
+}): Promise<Metadata> {
+  return {
+    title: (await wmo.city(params.id, Locale["En"]))?.name,
+  };
+}
 
 export default async function Page({
   params,
