@@ -10,6 +10,12 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always",
+            "source.removeUnusedImports": "always",
+        },
+    },
     "prettier.trailingComma": "all",
     "prettier.bracketSpacing": false,
     "git.ignoreLimitWarning": true
