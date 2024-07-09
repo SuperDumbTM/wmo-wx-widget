@@ -23,7 +23,7 @@ function CurrentWeather({weather}: {weather: PresentWeather}) {
         ></Image>
 
         <span className="font-medium text-lg">
-          {`${weather.temp}${weather.tempUnit}`}
+          {`${weather.temp || "--"}${weather.tempUnit}`}
         </span>
 
         <div className="flex mx-2" style={{height: "2.5rem"}}>
