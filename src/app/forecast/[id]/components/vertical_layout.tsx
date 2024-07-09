@@ -2,8 +2,7 @@ import Image from "next/image";
 
 import {FutureWeather, PresentWeather} from "@/libs/wmo/definition";
 import {Locale} from "@/libs/wmo/enums";
-
-import * as wmo from "../../../../libs/wmo/wmo";
+import * as wmo from "@/libs/wmo/wmo";
 
 export default function VerticalLayout({
   locale,

@@ -1,10 +1,9 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import * as wmo from "../../../libs/wmo/wmo";
+import * as wmo from "@/libs/wmo/wmo";
 import {Locale, TempUnit} from "@/libs/wmo/enums";
 import HorizontalLayout from "./components/horizontal_layout";
 import VerticalLayout from "./components/vertical_layout";
-import useTranslation from "next-translate/useTranslation";
 
 export default async function Page({
   params,
@@ -13,16 +12,17 @@ export default async function Page({
   params: {id: number};
   searchParams?: {[key: string]: any};
 }) {
-  const {t, lang} = useTranslation();
   const locale =
     Locale[
       (searchParams?.locale &&
         searchParams.locale[0].toUpperCase() +
           searchParams.locale.slice(1).toLowerCase()) as keyof typeof Locale
     ] || Locale["En"];
+
   const unit =
     TempUnit[(searchParams?.unit).toUpperCase() as keyof typeof TempUnit] ||
     TempUnit["C"];
+
   const [pwx, wx] = await Promise.all([
     wmo.present(params.id, locale, unit),
     wmo.forecasts(

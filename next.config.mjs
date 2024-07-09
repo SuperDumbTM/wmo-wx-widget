@@ -1,21 +1,9 @@
-import nextTranslate from "next-translate-plugin";
+import createNextIntlPlugin from "next-intl/plugin";
 
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: "https",
-//         hostname: "worldweather.wmo.int",
-//       },
-//     ],
-//   },
-//   output: "standalone",
-// };
-//
-// export default nextConfig;
+const withNextIntl = createNextIntlPlugin("./src/libs/i18n.ts");
 
-export default nextTranslate({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -25,4 +13,6 @@ export default nextTranslate({
     ],
   },
   output: "standalone",
-});
+};
+
+export default withNextIntl(nextConfig);
