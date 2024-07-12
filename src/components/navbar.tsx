@@ -49,16 +49,14 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
-  function handleOutsideClick(event: MouseEvent) {
+  document.addEventListener("mousedown", (event: MouseEvent) => {
     if (
       dropDownRef.current &&
       !dropDownRef.current.contains(event.target as Node)
     ) {
       setIsDropdownOpen(false);
     }
-  }
-
-  document.addEventListener("mousedown", handleOutsideClick);
+  });
 
   return (
     <nav className="bg-white shadow-md py-4">
