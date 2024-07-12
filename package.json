@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.11.3",
+    "js-cookie": "^3.0.5",
     "next": "14.2.4",
     "next-intl": "^3.15.4",
     "react": "^18",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.7",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
