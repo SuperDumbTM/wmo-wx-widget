@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useTranslations} from "use-intl";
 
 function LocaleButtons() {
@@ -47,13 +47,15 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
-  document.addEventListener("mousedown", (event: MouseEvent) => {
-    if (
-      dropDownRef.current &&
-      !dropDownRef.current.contains(event.target as Node)
-    ) {
-      setIsDropdownOpen(false);
-    }
+  useEffect(() => {
+    document.addEventListener("mousedown", (event: MouseEvent) => {
+      if (
+        dropDownRef.current &&
+        !dropDownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    });
   });
 
   return (
