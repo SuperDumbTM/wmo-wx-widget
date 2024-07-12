@@ -1,5 +1,7 @@
 "use client";
 
+import "./style.css";
+
 import {useTranslations} from "next-intl";
 import {useState} from "react";
 import {Locale} from "@/libs/wmo/enums";
