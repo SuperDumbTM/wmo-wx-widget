@@ -11,13 +11,6 @@ import {useTranslations} from "use-intl";
 function LocaleButtons() {
   const router = useRouter();
 
-  function handleLocaleChange(event: React.MouseEvent<HTMLButtonElement>) {
-    if (!event.currentTarget.dataset.code) return;
-
-    Cookies.set("lang", event.currentTarget.dataset.code);
-    router.refresh();
-  }
-
   return [
     {locale: "ar", name: "لعربية"},
     {locale: "en", name: "English"},
@@ -36,7 +29,12 @@ function LocaleButtons() {
       <button
         data-code={v.locale}
         className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-        onClick={handleLocaleChange}
+        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+          if (!event.currentTarget.dataset.code) return;
+
+          Cookies.set("lang", event.currentTarget.dataset.code);
+          router.refresh();
+        }}
       >
         {v.name}
       </button>
