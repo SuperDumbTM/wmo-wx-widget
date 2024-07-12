@@ -15,6 +15,8 @@
             "source.organizeImports": "always",
             "source.removeUnusedImports": "always",
         },
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
     },
     "prettier.trailingComma": "all",
     "prettier.bracketSpacing": false,
