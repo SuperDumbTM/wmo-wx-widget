@@ -72,6 +72,12 @@ export default function Navbar() {
           >
             Customiser
           </Link>
+          <Link
+            href="/forecast/1"
+            className="text-gray-700 hover:text-gray-900"
+          >
+            Widget Demo
+          </Link>
         </div>
         <div className="relative">
           <button
