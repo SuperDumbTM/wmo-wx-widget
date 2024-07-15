@@ -2,17 +2,19 @@
 
 import "./style.css";
 
-import {useTranslations} from "next-intl";
-import {useState} from "react";
 import {Locale} from "@/libs/wmo/enums";
-import {getCity} from "./actions";
-import Select, {createFilter} from "react-select";
+import {useLocale, useTranslations} from "next-intl";
+import {useEffect, useState} from "react";
+import {createFilter} from "react-select";
 import AsyncSelect from "react-select/async";
+import {getCity} from "./actions";
 
 export default function Page() {
   const t = useTranslations("common");
 
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState(
+    {"zh-Hant": "tc", "zh-Hans": "zh"}[useLocale()] || useLocale(),
+  );
 
   const [cityOption, setCityOption] = useState<
     Array<{value: string; label: string}>
@@ -29,6 +31,13 @@ export default function Page() {
   const [copied, setCopied] = useState(false);
 
   const [outUrl, setOutUrl] = useState("");
+
+  useEffect(() => {
+    // trigger change event to load the city options
+    document
+      .querySelector("select[name=country]")
+      ?.dispatchEvent(new Event("change", {bubbles: true}));
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -47,14 +56,14 @@ export default function Page() {
             <div className="flex flex-wrap -mx-3 mb-3">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
-                  htmlFor="country"
+                  htmlFor="locale"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {t("Language")}
                 </label>
                 <div className="mt-2">
                   <select
-                    name="country"
+                    name="locale"
                     defaultValue={language}
                     onChange={(e) => {
                       setFormData({...formData, locale: e.target.value});
