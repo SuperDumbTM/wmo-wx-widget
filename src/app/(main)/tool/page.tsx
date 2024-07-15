@@ -36,11 +36,10 @@ export default function Page() {
         <div className="space-y-4">
           <div className="border-b border-gray-900/10 pb-6">
             <h1 className="text-xl font-semibold leading-7 text-gray-900">
-              Widget Customiser
+              {t("Widget Customiser")}
             </h1>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              This information will be displayed publicly so be careful what you
-              share.
+              {t("widget_customiser_help")}
             </p>
           </div>
 
@@ -51,7 +50,7 @@ export default function Page() {
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Language
+                  {t("Language")}
                 </label>
                 <div className="mt-2">
                   <select
@@ -105,7 +104,7 @@ export default function Page() {
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  City
+                  {t("City")}
                 </label>
                 <div className="mt-2">
                   <AsyncSelect
@@ -134,16 +133,14 @@ export default function Page() {
 
           <div className="border-b border-gray-900/10 pb-6">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Display Settings
+              {t("Display Settings")}
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
-              Customising on how the weather information will be displayed.
-            </p>
+            <p className="mt-1 text-sm leading-6 text-gray-600"></p>
 
             <div className="mt-10 space-y-10">
               <fieldset>
                 <legend className="text-sm font-semibold leading-6 text-gray-900">
-                  Temperature Unit
+                  {t("Temperature Unit")}
                 </legend>
                 <p className="mt-1 text-sm leading-6 text-gray-600"></p>
 
@@ -163,7 +160,7 @@ export default function Page() {
                       htmlFor="inline-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Celsius (°C)
+                      {t("Celsius")} (°C)
                     </label>
                   </div>
 
@@ -182,7 +179,7 @@ export default function Page() {
                       htmlFor="inline-2-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Fahrenheit (°F)
+                      {t("Fahrenheit")} (°F)
                     </label>
                   </div>
                 </div>
@@ -190,7 +187,7 @@ export default function Page() {
 
               <fieldset>
                 <legend className="text-sm font-semibold leading-6 text-gray-900">
-                  Widget Alignment
+                  {t("Widget Alignment")}
                 </legend>
                 <p className="mt-1 text-sm leading-6 text-gray-600"></p>
 
@@ -210,7 +207,7 @@ export default function Page() {
                       htmlFor="inline-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Start
+                      {t("Start")}
                     </label>
                   </div>
 
@@ -229,7 +226,7 @@ export default function Page() {
                       htmlFor="inline-2-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      Center
+                      {t("Center")}
                     </label>
                   </div>
 
@@ -248,7 +245,7 @@ export default function Page() {
                       htmlFor="inline-2-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      End
+                      {t("End")}
                     </label>
                   </div>
                 </div>
@@ -256,9 +253,11 @@ export default function Page() {
 
               <fieldset>
                 <legend className="text-sm font-semibold leading-6 text-gray-900">
-                  Max Forecast Period
+                  {t("Max Forecast Period")}
                 </legend>
-                <p className="mt-1 text-sm leading-6 text-gray-600"></p>
+                <p className="mt-1 text-sm leading-6 text-gray-600">
+                  {t("max_forecast_help")}
+                </p>
 
                 <div className="flex mt-6 ">
                   <div className="flex items-center me-4">
@@ -392,7 +391,7 @@ export default function Page() {
                   );
                 }}
               >
-                Generate
+                {t("Generate")}
               </button>
             </div>
             <p
@@ -400,7 +399,7 @@ export default function Page() {
                 formData.city == "" ? "" : "hidden"
               } text-red-500 text-xs italic`}
             >
-              Please seletc a city first.
+              {t("empty_city_help")}
             </p>
           </div>
         </div>

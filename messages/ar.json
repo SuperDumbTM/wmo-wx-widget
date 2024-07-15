@@ -1,5 +1,21 @@
 {
     "common": {
+        "Widget Customiser": "أداة تخصيص القطعة",
+        "widget_customiser_help": "تخصيص كيفية عرض معلومات الطقس.",
+        "Language": "اللغة",
+        "City": "المدينة",
+        "Display Settings": "إعدادات العرض",
+        "Temperature Unit": "وحدة درجة الحرارة",
+        "Celsius": "مئوية",
+        "Fahrenheit": "فهرنهايت",
+        "Widget Alignment": "محاذاة القطعة",
+        "Start": "أعلى",
+        "Center": "الوسط",
+        "End": "الأسفل",
+        "Max Forecast Period": "الحد الأقصى لفترة التنبؤ",
+        "max_forecast_help": "الحد الأقصى لعدد التنبؤات بالأيام. ومع ذلك، سيعتمد المبلغ الفعلي على مصدر البيانات.",
+        "Generate": "توليد",
+        "empty_city_help": "يرجى تحديد المدينة أولاً."
     },
     "nav": {
         "Home": "الصفحة الرئيسية",

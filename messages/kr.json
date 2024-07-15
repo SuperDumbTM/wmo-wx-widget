@@ -1,5 +1,21 @@
 {
     "common": {
+        "Widget Customiser": "위젯 커스터마이저",
+        "widget_customiser_help": "날씨 정보가 표시되는 방식을 사용자 지정합니다.",
+        "Language": "언어",
+        "City": "도시",
+        "Display Settings": "표시 설정",
+        "Temperature Unit": "온도 단위",
+        "Celsius": "섭씨",
+        "Fahrenheit": "화씨",
+        "Widget Alignment": "위젯 정렬",
+        "Start": "상단",
+        "Center": "가운데",
+        "End": "하단",
+        "Max Forecast Period": "최대 예보 기간",
+        "max_forecast_help": "최대 예측 기간(일)입니다. 그러나 실제 금액은 데이터 소스에 따라 달라집니다.",
+        "Generate": "생성",
+        "empty_city_help": "먼저 도시를 선택하세요."
     },
     "nav": {
         "Home": "홈 페이지",

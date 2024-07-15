@@ -1,5 +1,22 @@
 {
     "common": {
+        "Widget Customiser": "客制化工具",
+        "widget_customiser_help": "自订天气资讯的排版及格式。",
+        "Language": "语言",
+        "City": "城市",
+        "Display Settings": "显示设定",
+        "display_settings_help": "",
+        "Temperature Unit": "温度单位",
+        "Celsius": "摄氏度",
+        "Fahrenheit": "华氏度",
+        "Widget Alignment": "部件对齐",
+        "Start": "上",
+        "Center": "中",
+        "End": "下",
+        "Max Forecast Period": "最多预测日数",
+        "max_forecast_help": "最多预测数量（以天为单位）。然而，实际预测数量将取决于数据来源。",
+        "Generate": "产生",
+        "empty_city_help": "请先选择城市。"
     },
     "nav": {
         "Home": "主页",

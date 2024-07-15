@@ -1,5 +1,21 @@
 {
     "common": {
+        "Widget Customiser": "Widget Customiser",
+        "widget_customiser_help": "Dostosowywanie sposobu wyświetlania informacji o pogodzie.",
+        "Language": "Język",
+        "City": "Miasto",
+        "Display Settings": "Ustawienia wyświetlania",
+        "Temperature Unit": "Jednostka temperatury",
+        "Celsius": "Celsjusz",
+        "Fahrenheit": "Fahrenheit",
+        "Widget Alignment": "Wyrównanie widżetu",
+        "Start": "Góra",
+        "Center": "Środek",
+        "End": "Dół",
+        "Max Forecast Period": "Maksymalny okres prognozy",
+        "max_forecast_help": "Maksymalna liczba prognoz w dniach. Rzeczywista liczba zależy jednak od źródła danych.",
+        "Generate": "Generuj",
+        "empty_city_help": "Najpierw wybierz miasto."
     },
     "nav": {
         "Home": "Strona główna",

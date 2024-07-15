@@ -1,5 +1,21 @@
 {
     "common": {
+        "Widget Customiser": "Personalizador de widgets",
+        "widget_customiser_help": "Personalização da forma como a informação meteorológica é apresentada.",
+        "Language": "Idioma",
+        "City": "Cidade",
+        "Display Settings": "Definições do ecrã",
+        "Temperature Unit": "Unidade de temperatura",
+        "Celsius": "Celsius",
+        "Fahrenheit": "Fahrenheit",
+        "Widget Alignment": "Alinhamento do widget",
+        "Start": "Superior",
+        "Center": "Central",
+        "End": "Inferior",
+        "Max Forecast Period": "Período máximo de previsão",
+        "max_forecast_help": "A contagem máxima de previsão em dias. No entanto, o valor real dependerá da fonte de dados.",
+        "Generate": "Gerar",
+        "empty_city_help": "Seleccione primeiro uma cidade."
     },
     "nav": {
         "Home": "Página inicial",
