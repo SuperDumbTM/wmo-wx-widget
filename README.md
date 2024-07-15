@@ -1,36 +1,182 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a id="readme-top"></a>
 
+
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+<div align="center">
+  
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Forks][forks-shield]][forks-url]
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+  [![MIT License][license-shield]][license-url]
+  
+</div>
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/SuperDumbTM/wmo-wx-widget">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">wmo-wx-widget</h3>
+
+  <p align="center">
+    A self-hosted weather widget that uses the World Meteorological Organization (WMO) as the data source.
+    <br />
+    <br />
+    <a href="https://github.com/SuperDumbTM/wmo-wx-widget/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/SuperDumbTM/wmo-wx-widget/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+This project is an alternative to the weather widgets that already exists on the internet.
+
+The purpose of this project is to provide weather information for trustworthy source -- World Meteorological Organization, which provides data from the local weather organisation around the world.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+* [<img src="https://img.shields.io/badge/bootstrap%20icons-7532fa?style=for-the-badge&logo=bootstrap&logoColor=white">](https://tailwindcss.com/)
+* [<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">](https://nextjs.org/)
+* [<img src="https://img.shields.io/badge/tailwindcss-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white">](https://tailwindcss.com/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Setup
 
-## Learn More
+1. Clone the repo
+   ```sh
+   git clone https://github.com/SuperDumbTM/wmo-wx-widget.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+#### Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Development
+   ```sh
+   npm run dev
+   ```
+* Production
+   ```sh
+   npm run build && npm run start
+   ```
+* Docker Build
+   ```sh
+   docker build -t wmo-wx-widget .
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<!-- USAGE EXAMPLES -->
+## Usage
+
+### Responsive Widget
+
+The widget will adjust itself to accomandate the size of the screen.
+   
+<img src="https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/e605d36b-e0a0-46ba-adec-f65fa260679b" width=50% height=50%>
+<img src="https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/e26ed814-1744-4179-b2c4-f7c4907d916a" width=50% height=50%>
+<img src="https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/30e5ac8b-37b0-485d-9cf3-5b2ccf994894" width=50% height=50%>
+
+### Customiser
+
+A customiser is provide for you to select the location and various display settings.
+
+<img src="https://github.com/user-attachments/assets/f27ad604-f91f-4fb3-bcf2-9e439e30b523" width=40% height=40%>
+
+### Notion Embedding
+
+Embedding the widget in note taking app should work like a charm.
+
+<img src="https://github.com/user-attachments/assets/faedc95d-9255-47ae-b7a8-071fedeb416c" width=25% height=25%>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[contributors-url]: https://github.com/SuperDumbTM/wmo-wx-widget/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[forks-url]: https://github.com/SuperDumbTM/wmo-wx-widget/network/members
+[stars-shield]: https://img.shields.io/github/stars/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[stars-url]: https://github.com/SuperDumbTM/wmo-wx-widget/stargazers
+[issues-shield]: https://img.shields.io/github/issues/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[issues-url]: https://github.com/SuperDumbTM/wmo-wx-widget/issues
+[license-shield]: https://img.shields.io/github/license/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[license-url]: https://github.com/SuperDumbTM/wmo-wx-widget/blob/master/LICENSE.txt
+[product-screenshot]: https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/e605d36b-e0a0-46ba-adec-f65fa260679b
