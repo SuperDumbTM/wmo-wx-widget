@@ -327,8 +327,18 @@ export default function Page() {
               <button
                 type="button"
                 className="px-4 py-3 text-white rounded-lg bg-indigo-600 hover:bg-indigo-500 focus:outline-none"
-                onClick={(e) => {
-                  updateUrl();
+                onClick={(_) => {
+                  setOutUrl(
+                    `${location.host}/forecast/${
+                      formData.city
+                    }?${new URLSearchParams(
+                      Object.fromEntries(
+                        Object.entries(formData).filter(([k, v]) => {
+                          return v != null && v != "" && k != "city";
+                        }),
+                      ),
+                    )}`,
+                  );
                 }}
               >
                 Generate
