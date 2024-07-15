@@ -64,19 +64,28 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           <span className="text-xl font-semibold">wmo-wx-widget</span>
           <Link href="/" className="text-gray-700 hover:text-gray-900">
-            Home
+            <span className="block sm:hidden">
+              <i className="bi bi-house"></i>
+            </span>
+            <span className="hidden sm:block">Home</span>
           </Link>
           <Link
             href="/customiser"
             className="text-gray-700 hover:text-gray-900"
           >
-            Customiser
+            <span className="block sm:hidden">
+              <i className="bi bi-ui-radios"></i>
+            </span>
+            <span className="hidden sm:block">Customiser</span>
           </Link>
           <Link
             href="/forecast/1"
             className="text-gray-700 hover:text-gray-900"
           >
-            Widget Demo
+            <span className="block sm:hidden">
+              <i className="bi bi-eyedropper"></i>
+            </span>
+            <span className="hidden sm:block">Widget Demo</span>
           </Link>
         </div>
         <div className="relative">
