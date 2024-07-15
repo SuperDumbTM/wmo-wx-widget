@@ -27,6 +27,7 @@ function LocaleButtons() {
   ].map((v, _) => {
     return (
       <button
+        key={v.locale}
         data-code={v.locale}
         className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
         onClick={(event: React.MouseEvent<HTMLButtonElement>) => {

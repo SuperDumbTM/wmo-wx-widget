@@ -11,9 +11,10 @@ import {getCity} from "./actions";
 
 export default function Page() {
   const t = useTranslations("common");
+  const usrLocale = useLocale();
 
   const [language, setLanguage] = useState(
-    {"zh-Hant": "tc", "zh-Hans": "zh"}[useLocale()] || useLocale(),
+    {"zh-Hant": "tc", "zh-Hans": "zh"}[usrLocale] || usrLocale,
   );
 
   const [cityOption, setCityOption] = useState<
