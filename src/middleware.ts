@@ -6,7 +6,14 @@ import {NextResponse} from "next/server";
  */
 export default function intlMiddleware(req: NextRequest) {
   const headers = new Headers(req.headers);
-  headers.set("x-wx-locale", req.nextUrl.searchParams.get("locale") || "en");
+
+  if (req.nextUrl.searchParams.get("locale") == "tc") {
+    headers.set("x-wx-locale", "zh-Hant");
+  } else if (req.nextUrl.searchParams.get("locale") == "zh") {
+    headers.set("x-wx-locale", "zh-Hans");
+  } else {
+    headers.set("x-wx-locale", req.nextUrl.searchParams.get("locale") || "en");
+  }
 
   return NextResponse.next({
     request: {
