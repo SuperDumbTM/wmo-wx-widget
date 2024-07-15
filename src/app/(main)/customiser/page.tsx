@@ -19,27 +19,16 @@ export default function Page() {
   >([]);
 
   const [formData, setFormData] = useState({
-    locale: "",
-    city: "",
-    unit: "C",
     align: "start",
+    city: "",
+    days: "5",
+    locale: "",
+    unit: "C",
   });
 
   const [copied, setCopied] = useState(false);
 
   const [outUrl, setOutUrl] = useState("");
-
-  function updateUrl() {
-    setOutUrl(
-      `${location.host}/forecast/${formData.city}?${new URLSearchParams(
-        Object.fromEntries(
-          Object.entries(formData).filter(([k, v]) => {
-            return v != null && v != "" && k != "city";
-          }),
-        ),
-      )}`,
-    );
-  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -261,6 +250,63 @@ export default function Page() {
                     >
                       End
                     </label>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend className="text-sm font-semibold leading-6 text-gray-900">
+                  Max Forecast Period
+                </legend>
+                <p className="mt-1 text-sm leading-6 text-gray-600"></p>
+
+                <div className="flex mt-6 ">
+                  <div className="flex items-center me-4">
+                    <button
+                      type="button"
+                      className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                      onClick={(_) => {
+                        let d = parseInt(formData.days);
+                        if (d > 1) {
+                          setFormData({
+                            ...formData,
+                            days: (--d).toString(),
+                          });
+                        }
+                      }}
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="w-14 h-11 border-gray-300 text-center text-sm focus:ring-blue-300 focus:border-blue-300"
+                      value={formData.days}
+                      onChange={(e) => {
+                        if (e.target.value == "") {
+                          setFormData({...formData, days: ""});
+                        }
+                        if (e.target.value.match(/^[0-9]+$/)) {
+                          let d = parseInt(e.target.value);
+                          setFormData({
+                            ...formData,
+                            days: d > 0 ? d.toString() : "1",
+                          });
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                      onClick={(_) => {
+                        let d = parseInt(formData.days);
+                        setFormData({
+                          ...formData,
+                          days: (++d).toString(),
+                        });
+                      }}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </fieldset>
