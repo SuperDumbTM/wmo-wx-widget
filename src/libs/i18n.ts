@@ -9,7 +9,7 @@ export default getRequestConfig(async () => {
     locale,
     messages: (await import(`../../messages/${locale}.json`)).default,
     onError(error) {
-      console.log(`IntlError: ${error.code}: ${error.message}`);
+      console.log(`IntlError (${error.code}): ${error.originalMessage}`);
     },
     getMessageFallback({namespace, key, error}) {
       return key;
