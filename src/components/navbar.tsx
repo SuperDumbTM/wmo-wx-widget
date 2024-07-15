@@ -43,7 +43,7 @@ function LocaleButtons() {
 }
 
 export default function Navbar() {
-  const t = useTranslations("common");
+  const t = useTranslations("nav");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
@@ -67,16 +67,13 @@ export default function Navbar() {
             <span className="block sm:hidden">
               <i className="bi bi-house"></i>
             </span>
-            <span className="hidden sm:block">Home</span>
+            <span className="hidden sm:block">{t("Home")}</span>
           </Link>
-          <Link
-            href="/customiser"
-            className="text-gray-700 hover:text-gray-900"
-          >
+          <Link href="/tool" className="text-gray-700 hover:text-gray-900">
             <span className="block sm:hidden">
               <i className="bi bi-ui-radios"></i>
             </span>
-            <span className="hidden sm:block">Customiser</span>
+            <span className="hidden sm:block">{t("Tool")}</span>
           </Link>
           <Link
             href="/forecast/1"
@@ -85,7 +82,7 @@ export default function Navbar() {
             <span className="block sm:hidden">
               <i className="bi bi-eyedropper"></i>
             </span>
-            <span className="hidden sm:block">Widget Demo</span>
+            <span className="hidden sm:block">{t("Widget Demo")}</span>
           </Link>
         </div>
         <div className="relative">

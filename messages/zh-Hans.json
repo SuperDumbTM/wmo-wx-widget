@@ -1,7 +1,10 @@
 {
     "common": {
-        "title": "你好",
-        "variable-example": "變量 {{count}}"
+    },
+    "nav": {
+        "Home": "主页",
+        "Tool": "工具",
+        "Widget Demo": "部件演示"
     },
     "weather": {
         "N": "北",

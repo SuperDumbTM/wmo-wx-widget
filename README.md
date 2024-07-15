@@ -151,9 +151,9 @@ The widget will adjust itself to accomandate the size of the screen.
 <img src="https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/e26ed814-1744-4179-b2c4-f7c4907d916a" width=50% height=50%>
 <img src="https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/30e5ac8b-37b0-485d-9cf3-5b2ccf994894" width=50% height=50%>
 
-### Customiser
+### Widget Customiser
 
-A customiser is provide for you to select the location and various display settings.
+A tool is provide for you to select the location and various display settings.
 
 <img src="https://github.com/user-attachments/assets/f27ad604-f91f-4fb3-bcf2-9e439e30b523" width=40% height=40%>
 

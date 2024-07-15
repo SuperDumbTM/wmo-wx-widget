@@ -1,7 +1,10 @@
 {
     "common": {
-        "title": "Hello world",
-        "variable-example": "Using a variable {{count}}"
+    },
+    "nav": {
+        "Home": "홈 페이지",
+        "Tool": "도구",
+        "Widget Demo": "위젯 데모"
     },
     "weather": {
         "N": "북",

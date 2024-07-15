@@ -1,7 +1,10 @@
 {
     "common": {
-        "title": "Hello world",
-        "variable-example": "Using a variable {{count}}"
+    },
+    "nav": {
+        "Home": "Главная страница",
+        "Tool": "Инструмент",
+        "Widget Demo": "Демонстрация виджета"
     },
     "weather": {
         "N": "N",

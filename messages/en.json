@@ -1,7 +1,10 @@
 {
     "common": {
-        "title": "Hello world",
-        "variable-example": "Using a variable {{count}}"
+    },
+    "nav": {
+        "Home": "Homr",
+        "Tool": "Tool",
+        "Widget Demo": "Widget Demo"
     },
     "weather": {
         "N": "N",
