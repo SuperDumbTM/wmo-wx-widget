@@ -374,6 +374,11 @@ export default function Page() {
                 type="button"
                 className="px-4 py-3 text-white rounded-lg bg-indigo-600 hover:bg-indigo-500 focus:outline-none"
                 onClick={(_) => {
+                  if (formData.city == "") {
+                    setOutUrl("");
+                    return;
+                  }
+
                   setOutUrl(
                     `${location.host}/forecast/${
                       formData.city
@@ -390,6 +395,13 @@ export default function Page() {
                 Generate
               </button>
             </div>
+            <p
+              className={`${
+                formData.city == "" ? "" : "hidden"
+              } text-red-500 text-xs italic`}
+            >
+              Please seletc a city first.
+            </p>
           </div>
 
           {/* <div className="mt-6 flex gap-x-2">
