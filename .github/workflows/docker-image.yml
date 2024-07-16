@@ -23,14 +23,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lower case owner name
+        run: |
+            echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+
       - name: Extract version from tag
         id: extract_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.VERSION }} .
+          docker build -t ghcr.io/${{ github.repository }}:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}:${{ env.VERSION }}
+          docker push ghcr.io/${{ OWNER_LC }}/${{ github.repository }}:${{ env.VERSION }}
