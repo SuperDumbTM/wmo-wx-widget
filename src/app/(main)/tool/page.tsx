@@ -36,7 +36,7 @@ export default function Page() {
   useEffect(() => {
     // trigger change event to load the city options
     document
-      .querySelector("select[name=country]")
+      .querySelector("select[name=locale]")
       ?.dispatchEvent(new Event("change", {bubbles: true}));
   }, []);
 
