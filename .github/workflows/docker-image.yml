@@ -23,9 +23,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      
-      - id: owner_lc
-        uses: ASzc/change-string-case-action@v2
+      - name: Set onwer name to lower case
+        id: owner_lc
+        uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.owner }}
 
@@ -35,8 +35,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }} .
+          docker build -t ghcr.io${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }}
+          docker push ghcr.io${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }}
