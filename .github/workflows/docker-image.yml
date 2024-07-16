@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io$/{{ steps.repo_lc.outputs.lowercase }}:${{ env.VERSION }} .
+          docker build -t ghcr.io/${{ steps.repo_lc.outputs.lowercase }}:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
