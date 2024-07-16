@@ -78,7 +78,7 @@
 
 This project is an alternative to the weather widgets that already exists on the internet.
 
-The purpose of this project is to provide weather information for trustworthy source -- World Meteorological Organization, which provides data from the local weather organisation around the world.
+The purpose of this project is to provide weather information form a trustworthy source -- World Meteorological Organization, which relay the data from the local weather organisation around the world.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,7 +153,7 @@ The widget will adjust itself to accomandate the size of the screen.
 
 ### Widget Customiser
 
-A tool is provide for you to select the location and various display settings.
+A configurating tool is provided to configure the location and various display settings.
 
 <img src="https://github.com/user-attachments/assets/f27ad604-f91f-4fb3-bcf2-9e439e30b523" width=40% height=40%>
 
