@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:${{ env.VERSION }} .
+          docker build -t ghcr.io/${{ OWNER_LC }}/${{ github.repository }}:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
