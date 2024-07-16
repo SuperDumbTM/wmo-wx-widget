@@ -29,6 +29,9 @@ jobs:
         with:
           string: ${{ github.owner }}
 
+      - id: step2
+        run: echo ${{ steps.owner_lc.outputs.lowercase }}
+
       - name: Extract version from tag
         id: extract_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
