@@ -23,11 +23,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set lower case owner name
-        run: |
-            echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
+      
+      - id: owner_lc
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.owner }}
 
       - name: Extract version from tag
         id: extract_version
@@ -35,8 +35,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ OWNER_LC }}/${{ github.repository }}:${{ env.VERSION }} .
+          docker build -t ghcr.io/${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }} .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ OWNER_LC }}/${{ github.repository }}:${{ env.VERSION }}
+          docker push ghcr.io/${{ steps.owner_lc.outputs.lowercase }}/${{ github.repository }}:${{ env.VERSION }}
