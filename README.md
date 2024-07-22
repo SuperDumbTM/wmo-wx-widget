@@ -26,7 +26,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SuperDumbTM/wmo-wx-widget">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/user-attachments/assets/95a12440-70ea-4d86-a998-34284361153e" width="80" height="80">
   </a>
 
   <h3 align="center">wmo-wx-widget</h3>
