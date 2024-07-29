@@ -32,7 +32,7 @@
   <h3 align="center">wmo-wx-widget</h3>
 
   <p align="center">
-    A self-hosted weather widget that uses the World Meteorological Organization (WMO) as the data source.
+    A responsive, self-hosted weather widget that provide official weather information around the world.
     <br />
     <br />
     <a href="https://github.com/SuperDumbTM/wmo-wx-widget/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
