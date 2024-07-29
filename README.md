@@ -172,6 +172,6 @@ Embedding the widget in note taking app should work like a charm.
 [stars-url]: https://github.com/SuperDumbTM/wmo-wx-widget/stargazers
 [issues-shield]: https://img.shields.io/github/issues/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
 [issues-url]: https://github.com/SuperDumbTM/wmo-wx-widget/issues
-[license-shield]: https://img.shields.io/github/license/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/SuperDumbTM/wmo-wx-widget?style=for-the-badge
 [license-url]: https://github.com/SuperDumbTM/wmo-wx-widget/blob/master/LICENSE
 [product-screenshot]: https://github.com/SuperDumbTM/wmo-wx-widget/assets/71750702/e605d36b-e0a0-46ba-adec-f65fa260679b
