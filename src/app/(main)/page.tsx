@@ -1,16 +1,13 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="grid grid-rows-3 grid-flow-col gap-1">
         <div className="row-span-3">
-          <Image
+          <img
             width={120}
             height={120}
             src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-            alt="Github logo"
-          ></Image>
+          ></img>
         </div>
         <div className="col-span-2 flex items-center">
           <a

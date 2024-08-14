@@ -15,12 +15,7 @@ function CurrentWeather({weather}: {weather: PresentWeather}) {
       </div>
 
       <div className="flex justify-around items-center my-1">
-        <Image
-          src={weather.icon!}
-          width={60}
-          height={40}
-          alt="Weather Icon"
-        ></Image>
+        <img src={weather.icon!} width={60} height={40} alt="Weather Icon" />
 
         <span className="font-medium text-xl">
           {`${weather.temp || "--"}${weather.tempUnit}`}
@@ -81,12 +76,7 @@ function Forecasts({
         </div>
 
         <div className="flex grow justify-center items-center">
-          <Image
-            src={wx.icon!}
-            width={60}
-            height={40}
-            alt="Weather Icon"
-          ></Image>
+          <img src={wx.icon!} width={60} height={40} alt="Weather Icon" />
         </div>
 
         <div

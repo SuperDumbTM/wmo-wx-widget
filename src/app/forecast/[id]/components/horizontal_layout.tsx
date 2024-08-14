@@ -18,12 +18,7 @@ async function CurrentWeather({weather}: {weather: PresentWeather}) {
       </div>
 
       <div className="flex items-center my-1">
-        <Image
-          src={weather.icon!}
-          width={70}
-          height={50}
-          alt="Weather Icon"
-        ></Image>
+        <img src={weather.icon!} width={70} height={50} alt="Weather Icon" />
 
         <div className="flex flex-col items-center my-1">
           <span className="font-bold text-2xl">
@@ -101,12 +96,7 @@ function Forecasts({
           className="flex justify-center items-center my-2"
           style={{minWidth: "30%"}}
         >
-          <Image
-            src={wx.icon!}
-            width={50}
-            height={30}
-            alt="Weather Icon"
-          ></Image>
+          <img src={wx.icon!} width={50} height={30} alt="Weather Icon" />
         </div>
 
         <div className="flex flex-col lg:flex-row justify-center items-center">
