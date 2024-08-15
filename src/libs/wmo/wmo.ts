@@ -11,11 +11,6 @@ import {Locale, TempUnit} from "./enums";
 
 const wmoUrl = "https://worldweather.wmo.int";
 
-let cityCache = new Map() as Map<
-  Locale,
-  {lastUpdate: number; data: Array<City>}
->;
-
 /**
  * Translate WMO locale codes used by to ISO639 codes.
  */
@@ -74,17 +69,16 @@ export function forecasts(
   unit: TempUnit,
   days: number,
 ): Promise<FutureWeather> {
-  return new Promise(function (resolve, reject) {
-    fetch(`${wmoUrl}/${locale}/json/${cityId}_${locale}.xml`, {
-      next: {revalidate: 300},
-    }).then(async (res) => {
+  return fetch(`${wmoUrl}/${locale}/json/${cityId}_${locale}.xml`)
+    .then(async (res) => {
       try {
-        var json = (await res.json()) as WmoForecastResponse;
+        return (await res.json()) as WmoForecastResponse;
       } catch (e) {
-        return reject(new Error("Invalid Locale"));
+        return Promise.reject(new Error("Invalid Locale"));
       }
-
-      resolve({
+    })
+    .then(async (json) => {
+      return {
         issueAt: new Date(json.city.forecast.issueDate),
         country: {
           id: json.city.member.memId,
@@ -115,9 +109,8 @@ export function forecasts(
             icon: wxIconUrl(forecast.weatherIcon.toString(), false),
           }))
           .slice(0, Math.max(Math.abs(days), 1)),
-      });
+      };
     });
-  });
 }
 
 /**
@@ -128,126 +121,114 @@ export function present(
   locale: Locale,
   unit: TempUnit,
 ): Promise<PresentWeather> {
-  return new Promise(function (resolve, reject) {
-    fetch(`https://worldweather.wmo.int/${locale}/json/present.xml`, {
-      next: {revalidate: 300},
+  return fetch(`${wmoUrl}/${locale}/json/present.xml`)
+    .then(async (res) => {
+      try {
+        return (await res.json()) as WmoPresentWxResponse;
+      } catch (e) {
+        return Promise.reject(new Error("Invalid Locale"));
+      }
     })
-      .then(async (res) => {
-        try {
-          var json = (await res.json()) as WmoPresentWxResponse;
-          var wx = Object.entries(json.present).filter(
-            ([_, v]) => v.cityId == cityId,
-          )[0][1];
-        } catch (e) {
-          if (e instanceof SyntaxError) {
-            return reject(new Error("Invalid Locale"));
-          } else {
-            return reject(new Error("Invalid City ID"));
-          }
-        }
+    .then(async (json) => {
+      try {
+        var wx = Object.entries(json.present).filter(
+          ([_, v]) => v.cityId == cityId,
+        )[0][1];
+      } catch (e) {
+        return Promise.reject(new Error("Invalid City ID"));
+      }
 
-        if (!wx) {
-          throw new Error(`No data for the city (id: ${cityId})`);
-        }
+      if (!wx) {
+        return Promise.reject(
+          new RangeError(`No data for the city (id: ${cityId})`),
+        );
+      }
 
-        resolve({
-          city: (await city(cityId, locale))!,
-          issueAt: wx.issue
-            ? new Date(
-                wx.issue.slice(0, 4) as any,
-                wx.issue.slice(5, 6) as any,
-                wx.issue.slice(7, 8) as any,
-                wx.issue.slice(9, 10) as any,
-                wx.issue.slice(11, 12) as any,
-              )
+      return {
+        city: (await city(cityId, locale))!,
+        issueAt: wx.issue
+          ? new Date(
+              wx.issue.slice(0, 4) as any,
+              wx.issue.slice(5, 6) as any,
+              wx.issue.slice(7, 8) as any,
+              wx.issue.slice(9, 10) as any,
+              wx.issue.slice(11, 12) as any,
+            )
+          : null,
+        temp:
+          wx.temp !== ""
+            ? unit == TempUnit.C
+              ? wx.temp
+              : Math.round(((wx.temp * 9) / 5 + 32 + Number.EPSILON) * 100) /
+                100
             : null,
-          temp:
-            wx.temp !== ""
-              ? unit == TempUnit.C
-                ? wx.temp
-                : Math.round(((wx.temp * 9) / 5 + 32 + Number.EPSILON) * 100) /
-                  100
-              : null,
-          tempUnit: unit,
-          rh: wx.rh || null,
-          weather: wx.wxdesc,
-          icon:
-            wx.iconNum !== ""
-              ? wxIconUrl(wx.iconNum, true)
-              : "/images/question_mark.png",
-          wind:
-            wx.wd !== "" && wx.ws !== ""
-              ? {
-                  direction: wx.wd,
-                  speed:
-                    wx.ws !== ""
-                      ? Math.round(parseFloat(wx.ws) * 10) / 10
-                      : null,
-                }
-              : null,
-          sun: {
-            rise: new Date(
-              wx.sundate.slice(0, 4) as any,
-              wx.sundate.slice(5, 6) as any,
-              wx.sundate.slice(7, 8) as any,
-              wx.sunrise.slice(0, 2) as any,
-              wx.sunrise.slice(3, 4) as any,
-            ),
-            set: new Date(
-              wx.sundate.slice(0, 4) as any,
-              wx.sundate.slice(5, 6) as any,
-              wx.sundate.slice(7, 8) as any,
-              wx.sunset.slice(0, 2) as any,
-              wx.sunset.slice(3, 4) as any,
-            ),
-          },
-        });
-      })
-      .catch(reject);
-  });
+        tempUnit: unit,
+        rh: wx.rh || null,
+        weather: wx.wxdesc,
+        icon:
+          wx.iconNum !== ""
+            ? wxIconUrl(wx.iconNum, true)
+            : "/images/question_mark.png",
+        wind:
+          wx.wd !== "" && wx.ws !== ""
+            ? {
+                direction: wx.wd,
+                speed:
+                  wx.ws !== "" ? Math.round(parseFloat(wx.ws) * 10) / 10 : null,
+              }
+            : null,
+        sun: {
+          rise: new Date(
+            wx.sundate.slice(0, 4) as any,
+            wx.sundate.slice(5, 6) as any,
+            wx.sundate.slice(7, 8) as any,
+            wx.sunrise.slice(0, 2) as any,
+            wx.sunrise.slice(3, 4) as any,
+          ),
+          set: new Date(
+            wx.sundate.slice(0, 4) as any,
+            wx.sundate.slice(5, 6) as any,
+            wx.sundate.slice(7, 8) as any,
+            wx.sunset.slice(0, 2) as any,
+            wx.sunset.slice(3, 4) as any,
+          ),
+        },
+      };
+    });
 }
 
-export async function cities(locale: Locale) {
-  if (
-    !cityCache.has(locale) ||
-    (cityCache.has(locale) &&
-      Date.now() - cityCache.get(locale)!.lastUpdate! > 604800) // 1 week
-  ) {
-    await fetch(
-      `https://worldweather.wmo.int/${locale}/json/Country_${locale}.xml`,
-    )
-      .then((res) => res.json())
-      .then((json: WmoCityResponse) => {
-        /** @type {Array<City>} */
-        let cities_ = [];
+export async function cities(locale: Locale): Promise<Array<City>> {
+  return fetch(`${wmoUrl}/${locale}/json/Country_${locale}.xml`)
+    .then((res) => res.json())
+    .then((json: WmoCityResponse) => {
+      /** @type {Array<City>} */
+      let cities_ = [];
 
-        for (const [_, country] of Object.entries(json.member)) {
-          let c: Country = {
-            id: country.memId,
-            name: country.memName,
-            orgName: country.orgName,
-            logo: country.logo ? wmoUrl + `/images/logo/${country.logo}` : "",
-            url: country.url,
-          };
+      for (const [_, country] of Object.entries(json.member)) {
+        let c: Country = {
+          id: country.memId,
+          name: country.memName,
+          orgName: country.orgName,
+          logo: country.logo ? wmoUrl + `/images/logo/${country.logo}` : "",
+          url: country.url,
+        };
 
-          for (let city of country.city || []) {
-            cities_.push({
-              id: city.cityId,
-              name: city.cityName,
-              country: c,
-              latitude: parseFloat(city.cityLatitude),
-              longitude: parseFloat(city.cityLongitude),
-              forecast: city.forecast === "Y",
-              climate: city.climate === "Y",
-              isCapital: city.isCapital,
-            });
-          }
+        for (let city of country.city || []) {
+          cities_.push({
+            id: city.cityId,
+            name: city.cityName,
+            country: c,
+            latitude: parseFloat(city.cityLatitude),
+            longitude: parseFloat(city.cityLongitude),
+            forecast: city.forecast === "Y",
+            climate: city.climate === "Y",
+            isCapital: city.isCapital,
+          });
         }
+      }
 
-        cityCache.set(locale, {lastUpdate: Date.now(), data: cities_});
-      });
-  }
-  return cityCache.get(locale)!.data;
+      return cities_;
+    });
 }
 
 export async function city(cityId: number, locale: Locale) {
