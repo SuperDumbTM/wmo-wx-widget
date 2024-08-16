@@ -1,10 +1,10 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+import {Locale, TempUnit} from "@/libs/wmo/enums";
 import * as wmo from "@/libs/wmo/wmo";
 import {Metadata} from "next";
 import HorizontalLayout from "./components/horizontal_layout";
 import VerticalLayout from "./components/vertical_layout";
-import {Locale, TempUnit} from "@/libs/wmo/enums";
 
 export async function generateMetadata({
   params,
