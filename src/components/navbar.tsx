@@ -68,13 +68,13 @@ export default function Navbar() {
             <span className="block sm:hidden">
               <i className="bi bi-house"></i>
             </span>
-            <span className="hidden sm:block">{t("Home")}</span>
+            <span className="hidden sm:block">{t("home")}</span>
           </Link>
           <Link href="/tool" className="text-gray-700 hover:text-gray-900">
             <span className="block sm:hidden">
               <i className="bi bi-ui-radios"></i>
             </span>
-            <span className="hidden sm:block">{t("Tool")}</span>
+            <span className="hidden sm:block">{t("tool")}</span>
           </Link>
           <Link
             href="/forecast/1"
@@ -83,7 +83,7 @@ export default function Navbar() {
             <span className="block sm:hidden">
               <i className="bi bi-eyedropper"></i>
             </span>
-            <span className="hidden sm:block">{t("Widget Demo")}</span>
+            <span className="hidden sm:block">{t("widgetDemo")}</span>
           </Link>
         </div>
         <div className="relative">

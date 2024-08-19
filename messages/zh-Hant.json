@@ -1,27 +1,27 @@
 {
     "common": {
-        "Widget Customiser": "客製化工具",
-        "widget_customiser_help": "自訂天氣資訊的排版及格式。",
-        "Language": "語言",
-        "City": "城市",
-        "Display Settings": "顯示設定",
+        "widgetCustomiser": "客製化工具",
+        "widgetCustomiserHelp": "自訂天氣資訊的排版及格式。",
+        "language": "語言",
+        "city": "城市",
+        "displaySettings": "顯示設定",
         "display_settings_help": "",
-        "Temperature Unit": "溫度單位",
-        "Celsius": "攝氏度",
-        "Fahrenheit": "華氏度",
-        "Widget Alignment": "部件對齊",
-        "Start": "上",
-        "Center": "中",
-        "End": "下",
-        "Max Forecast Period": "最多預測日數",
-        "max_forecast_help": "最多預測數量（以天為單位）。然而，實際預測數量將取決於數據來源。",
-        "Generate": "產生",
-        "empty_city_help": "請先選擇城市。"
+        "temperatureUnit": "溫度單位",
+        "celsius": "攝氏度",
+        "fahrenheit": "華氏度",
+        "widgetAlignment": "部件對齊",
+        "start": "上",
+        "center": "中",
+        "end": "下",
+        "maxForecastPeriod": "最多預測日數",
+        "maxForecastPeriodHelp": "最多預測數量（以天為單位）。然而，實際預測數量將取決於數據來源。",
+        "generate": "產生",
+        "emptyCityValidation": "請先選擇城市。"
     },
     "nav": {
-        "Home": "首頁",
-        "Tool": "工具",
-        "Widget Demo": "示範"
+        "home": "首頁",
+        "tool": "工具",
+        "widgetDemo": "示範"
     },
     "weather": {
         "N": "北",

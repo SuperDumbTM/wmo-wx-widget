@@ -1,26 +1,26 @@
 {
     "common": {
-        "Widget Customiser": "Widget-Anpassung",
-        "widget_customiser_help": "Hier können Sie einstellen, wie die Wetterinformationen angezeigt werden sollen.",
-        "Language": "Sprache",
-        "City": "Stadt",
-        "Display Settings": "Anzeige-Einstellungen",
-        "Temperature Unit": "Temperatur-Einheit",
-        "Celsius": "Celsius",
-        "Fahrenheit": "Fahrenheit",
-        "Widget Alignment": "Widget-Ausrichtung",
-        "Start": "Oben",
-        "Center": "Zentriert",
-        "End": "Unten",
-        "Max Forecast Period": "Maximaler Vorhersagezeitraum",
-        "max_forecast_help": "Die maximale Vorhersageanzahl in Tagen. Die tatsächliche Anzahl hängt jedoch von der Datenquelle ab.",
-        "Generate": "Erzeugen",
-        "empty_city_help": "Bitte wählen Sie zuerst eine Stadt aus."
+        "widgetCustomiser": "Widget-Anpassung",
+        "widgetCustomiserHelp": "Hier können Sie einstellen, wie die Wetterinformationen angezeigt werden sollen.",
+        "language": "Sprache",
+        "city": "Stadt",
+        "displaySettings": "Anzeige-Einstellungen",
+        "temperatureUnit": "Temperatur-Einheit",
+        "celsius": "Celsius",
+        "fahrenheit": "Fahrenheit",
+        "widgetAlignment": "Widget-Ausrichtung",
+        "start": "Oben",
+        "center": "Zentriert",
+        "end": "Unten",
+        "maxForecastPeriod": "Maximaler Vorhersagezeitraum",
+        "maxForecastPeriodHelp": "Die maximale Vorhersageanzahl in Tagen. Die tatsächliche Anzahl hängt jedoch von der Datenquelle ab.",
+        "generate": "Erzeugen",
+        "emptyCityValidation": "Bitte wählen Sie zuerst eine Stadt aus."
     },
     "nav": {
-        "Home": "Hauptseite",
-        "Tool": "Werkzeug",
-        "Widget Demo": "Demo"
+        "home": "Hauptseite",
+        "tool": "Werkzeug",
+        "widgetDemo": "Demo"
     },
     "weather": {
         "N": "N",

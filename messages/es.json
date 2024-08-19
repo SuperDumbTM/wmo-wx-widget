@@ -1,26 +1,26 @@
 {
     "common": {
-        "Widget Customiser": "Personalizador de widgets",
-        "widget_customiser_help": "Personaliza cómo se mostrará la información meteorológica.",
-        "Language": "Idioma",
-        "City": "Ciudad",
-        "Display Settings": "Ajustes de pantalla",
-        "Temperature Unit": "Unidad de temperatura",
-        "Celsius": "Celsius",
-        "Fahrenheit": "Fahrenheit",
-        "Widget Alignment": "Alineación del widget",
-        "Start": "Arriba",
-        "Center": "Centro",
-        "End": "Abajo",
-        "Max Forecast Period": "Periodo máximo de previsión",
-        "max_forecast_help": "La cantidad máxima de previsión en días. Sin embargo, la cantidad real dependerá de la fuente de datos.",
-        "Generate": "Generar",
-        "empty_city_help": "Seleccione primero una ciudad."
+        "widgetCustomiser": "Personalizador de widgets",
+        "widgetCustomiserHelp": "Personaliza cómo se mostrará la información meteorológica.",
+        "language": "Idioma",
+        "city": "Ciudad",
+        "displaySettings": "Ajustes de pantalla",
+        "temperatureUnit": "Unidad de temperatura",
+        "celsius": "Celsius",
+        "fahrenheit": "Fahrenheit",
+        "widgetAlignment": "Alineación del widget",
+        "start": "Arriba",
+        "center": "Centro",
+        "end": "Abajo",
+        "maxForecastPeriod": "Periodo máximo de previsión",
+        "maxForecastPeriodHelp": "La cantidad máxima de previsión en días. Sin embargo, la cantidad real dependerá de la fuente de datos.",
+        "generate": "Generar",
+        "emptyCityValidation": "Seleccione primero una ciudad."
     },
     "nav": {
-        "Home": "Página de inicio",
-        "Tool": "Herramienta",
-        "Widget Demo": "Demostración del widget"
+        "home": "Página de inicio",
+        "tool": "Herramienta",
+        "widgetDemo": "Demostración del widget"
     },
     "weather": {
         "N": "N",

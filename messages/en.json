@@ -1,26 +1,26 @@
 {
     "common": {
-        "Widget Customiser": "Widget Customiser",
-        "widget_customiser_help": "Customising on how the weather information will be displayed.",
-        "Language": "Language",
-        "City": "City",
-        "Display Settings": "Display Settings",
-        "Temperature Unit": "Temperature Unit",
-        "Celsius": "Celsius",
-        "Fahrenheit": "Fahrenheit",
-        "Widget Alignment": "Widget Alignment",
-        "Start": "Start",
-        "Center": "Center",
-        "End": "End",
-        "Max Forecast Period": "Max Forecast Period",
-        "max_forecast_help": "The maximum forecast count in days. However, actual amount will be depends on the data source.",
-        "Generate": "Generate",
-        "empty_city_help": "Please seletc a city first."
+        "widgetCustomiser": "Widget Customiser",
+        "widgetCustomiserHelp": "Customising on how the weather information will be displayed.",
+        "language": "Language",
+        "city": "City",
+        "displaySettings": "Display Settings",
+        "temperatureUnit": "Temperature Unit",
+        "celsius": "Celsius",
+        "fahrenheit": "Fahrenheit",
+        "widgetAlignment": "Widget Alignment",
+        "start": "Start",
+        "center": "Center",
+        "end": "End",
+        "maxForecastPeriod": "Max Forecast Period",
+        "maxForecastPeriodHelp": "The maximum forecast count in days. However, actual amount will be depends on the data source.",
+        "generate": "Generate",
+        "emptyCityValidation": "Please seletc a city first."
     },
     "nav": {
-        "Home": "Home",
-        "Tool": "Tool",
-        "Widget Demo": "Widget Demo"
+        "home": "Home",
+        "tool": "Tool",
+        "widgetDemo": "Widget Demo"
     },
     "weather": {
         "N": "N",
