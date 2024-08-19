@@ -93,7 +93,6 @@ export default function Page() {
                       className="block w-full rounded-[4px] border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm"
                       style={{height: "38px"}}
                     >
-                      <option value={undefined}>-----</option>
                       <option value="ar">لعربية</option>
                       <option value="en">English</option>
                       <option value="tc">繁體中文</option>
