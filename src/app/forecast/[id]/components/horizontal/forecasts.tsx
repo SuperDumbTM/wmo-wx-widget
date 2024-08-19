@@ -1,8 +1,9 @@
 import {FutureWeather} from "@/libs/wmo/definition";
 import {Locale} from "@/libs/wmo/enums";
 import * as wmo from "@/libs/wmo/wmo";
+import {getTranslations} from "next-intl/server";
 
-export default function Forecasts({
+export default async function Forecasts({
   locale,
   forecast,
 }: {
@@ -10,9 +11,11 @@ export default function Forecasts({
   forecast: FutureWeather;
 }) {
   if (forecast.forecasts.data.length == 0) {
+    const t = await getTranslations("common");
+
     return (
       <div className="flex">
-        <span className="text-red-600">Forecast Not Available</span>
+        <span className="text-red-600">{t("Forecast Not Available")}</span>
       </div>
     );
   }
