@@ -9,7 +9,7 @@ export default function Forecasts({
   locale: Locale;
   forecast: FutureWeather;
 }) {
-  if (forecast.forecasts.length == 0) {
+  if (forecast.forecasts.data.length == 0) {
     return (
       <div className="flex flex-row justify-center items-center m-1 h-20 rounded-border">
         <span className="text-red-600">Forecast Not Available</span>
@@ -17,7 +17,7 @@ export default function Forecasts({
     );
   }
 
-  return forecast.forecasts.map(function (wx, idx) {
+  return forecast.forecasts.data.map(function (wx, idx) {
     let _d = new Date(wx.date);
 
     return (
@@ -33,7 +33,7 @@ export default function Forecasts({
         </div>
 
         <div className="flex grow justify-center items-center">
-          <img src={wx.icon!} width={60} height={40} alt="Weather Icon" />
+          <img src={wx.icon!} width={60} height={40} />
         </div>
 
         <div
@@ -42,11 +42,11 @@ export default function Forecasts({
         >
           <span className="text-sky-600 mx-1">
             <i className="bi bi-thermometer-low"></i>
-            {`${wx.temp.min ?? "--"}${wx.temp.unit}`}
+            {`${wx.temp.min.val ?? "--"}${wx.temp.min.unit}`}
           </span>
           <span className="text-red-600 mx-1">
             <i className="bi bi-thermometer-high"></i>
-            {`${wx.temp.max ?? "--"}${wx.temp.unit}`}
+            {`${wx.temp.max.val ?? "--"}${wx.temp.max.unit}`}
           </span>
         </div>
       </div>

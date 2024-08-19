@@ -2,6 +2,7 @@ import {
   City,
   Country,
   FutureWeather,
+  Organisation,
   PresentWeather,
   WmoCityResponse,
   WmoForecastResponse,
@@ -79,36 +80,61 @@ export function forecasts(
     })
     .then(async (json) => {
       return {
-        issueAt: new Date(json.city.forecast.issueDate),
         country: {
           id: json.city.member.memId,
           name: json.city.member.memName,
-          orgName: json.city.member.orgName,
-          logo: wmoUrl + `/images/logo/${json.city.member.logo}`,
-          url: json.city.member.url,
+        },
+        organisation: {
+          name: json.city.member.orgName,
+          logo: json.city.member.logo
+            ? wmoUrl + `/images/logo/${json.city.member.logo}`
+            : null,
+          url: json.city.member.url || null,
         },
         city: {
           name: json.city.cityName,
           stationName: json.city.stationName,
-          latitude: json.city.cityLatiude,
-          longitude: json.city.cityLatiude,
+          latitude: parseFloat(json.city.cityLatitude),
+          longitude: parseFloat(json.city.cityLongitude),
           isCapital: json.city.isCapital,
           timeZone: json.city.timeZone,
-          isDST: json.city.isDST != "N",
+          isDST: json.city.isDST !== "N",
         },
-        forecasts: json.city.forecast.forecastDay
-          .map((forecast) => ({
-            date: forecast.forecastDate,
-            description: forecast.wxdesc,
-            weather: forecast.weather,
-            temp: {
-              unit: unit,
-              min: unit == TempUnit.C ? forecast.minTemp : forecast.minTempF,
-              max: unit == TempUnit.C ? forecast.maxTemp : forecast.maxTempF,
-            },
-            icon: wxIconUrl(forecast.weatherIcon.toString(), false),
-          }))
-          .slice(0, Math.max(Math.abs(days), 1)),
+        forecasts: {
+          issueAt:
+            json.city.forecast.issueDate != "N/A"
+              ? new Date(json.city.forecast.issueDate + json.city.timeZone)
+              : null,
+          data: json.city.forecast.forecastDay
+            .map((forecast) => ({
+              date: forecast.forecastDate,
+              description: forecast.wxdesc,
+              weather: forecast.weather,
+              temp: {
+                min: {
+                  unit: unit,
+                  val:
+                    parseInt(
+                      // @ts-ignore
+                      unit == TempUnit.C ? forecast.minTemp : forecast.minTempF,
+                    ) || null,
+                },
+                max: {
+                  unit: unit,
+                  val:
+                    parseInt(
+                      // @ts-ignore
+                      unit == TempUnit.C ? forecast.maxTemp : forecast.maxTempF,
+                    ) || null,
+                },
+              },
+              icon:
+                forecast.weatherIcon != 0
+                  ? wxIconUrl(forecast.weatherIcon.toString(), false)
+                  : "/images/question_mark.png",
+            }))
+            .slice(0, Math.max(Math.abs(days), 1)),
+        },
       };
     });
 }
@@ -155,14 +181,16 @@ export function present(
               wx.issue.slice(11, 12) as any,
             )
           : null,
-        temp:
-          wx.temp !== ""
-            ? unit == TempUnit.C
-              ? wx.temp
-              : Math.round(((wx.temp * 9) / 5 + 32 + Number.EPSILON) * 100) /
-                100
-            : null,
-        tempUnit: unit,
+        temp: {
+          unit: unit,
+          val:
+            wx.temp !== ""
+              ? unit == TempUnit.C
+                ? wx.temp
+                : Math.round(((wx.temp * 9) / 5 + 32 + Number.EPSILON) * 100) /
+                  100
+              : null,
+        },
         rh: wx.rh || null,
         weather: wx.wxdesc,
         icon:
@@ -208,16 +236,19 @@ export async function cities(locale: Locale): Promise<Array<City>> {
         let c: Country = {
           id: country.memId,
           name: country.memName,
-          orgName: country.orgName,
-          logo: country.logo ? wmoUrl + `/images/logo/${country.logo}` : "",
-          url: country.url,
+        };
+        let org: Organisation = {
+          name: country.orgName,
+          logo: country.logo ? wmoUrl + `/images/logo/${country.logo}` : null,
+          url: country.url || null,
         };
 
-        for (let city of country.city || []) {
+        for (const city of country.city || []) {
           cities_.push({
             id: city.cityId,
             name: city.cityName,
             country: c,
+            organisation: org,
             latitude: parseFloat(city.cityLatitude),
             longitude: parseFloat(city.cityLongitude),
             forecast: city.forecast === "Y",

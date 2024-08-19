@@ -14,11 +14,11 @@ export default async function Present({weather}: {weather: PresentWeather}) {
       </div>
 
       <div className="flex items-center my-1">
-        <img src={weather.icon!} width={70} height={50} alt="Weather Icon" />
+        <img src={weather.icon!} width={70} height={50} />
 
         <div className="flex flex-col items-center my-1">
           <span className="font-bold text-2xl">
-            {`${weather.temp || "--"}${weather.tempUnit}`}
+            {`${weather.temp.val || "--"}${weather.temp.unit}`}
           </span>
         </div>
       </div>

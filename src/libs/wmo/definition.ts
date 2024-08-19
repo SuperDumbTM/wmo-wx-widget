@@ -3,15 +3,19 @@ import {TempUnit} from "./enums";
 export interface Country {
   id: number;
   name: string;
-  orgName: string;
-  logo: string;
-  url: string;
+}
+
+export interface Organisation {
+  name: string;
+  logo: string | null;
+  url: string | null;
 }
 
 export interface City {
   id: number;
   name: string;
   country: Country;
+  organisation: Organisation;
   latitude: number;
   longitude: number;
   forecast: boolean;
@@ -23,7 +27,10 @@ export interface Forecast {
   date: string;
   description: string;
   weather: string;
-  temp: Temperature;
+  temp: {
+    min: Temperature;
+    max: Temperature;
+  };
   icon: string;
 }
 
@@ -38,16 +45,18 @@ export interface ForecastCity {
 }
 
 export interface FutureWeather {
-  issueAt: Date;
   country: Country;
+  organisation: Organisation;
   city: ForecastCity;
-  forecasts: Array<Forecast>;
+  forecasts: {
+    issueAt: Date | null;
+    data: Array<Forecast>;
+  };
 }
 
 export interface Temperature {
   unit: TempUnit;
-  max: number;
-  min: number;
+  val: number | null;
 }
 
 export interface Wind {
@@ -63,8 +72,7 @@ export interface Sun {
 export interface PresentWeather {
   city: City;
   issueAt: Date | null;
-  temp: number | null;
-  tempUnit: TempUnit | null;
+  temp: Temperature;
   rh: number | null;
   weather: string | null;
   icon: string | null;
@@ -76,8 +84,8 @@ export interface WmoForecastResponse {
   city: {
     lang: string;
     cityName: string;
-    cityLatiude: number;
-    cityLongitude: number;
+    cityLatitude: string;
+    cityLongitude: string;
     cityId: number;
     isCapital: boolean;
     stationName: string;
@@ -101,10 +109,10 @@ export interface WmoForecastResponse {
         forecastDate: string;
         wxdesc: string;
         weather: string;
-        minTemp: number;
-        maxTemp: number;
-        minTempF: number;
-        maxTempF: number;
+        minTemp: "" | number;
+        maxTemp: "" | number;
+        minTempF: "" | number;
+        maxTempF: "" | number;
         weatherIcon: number;
       }>;
     };
@@ -155,6 +163,6 @@ export interface WmoPresentWxResponse {
     sunset: string;
     moonrise: string;
     moonset: string;
-    daynightcode: "a" | "b";
+    daynightcode: "" | "a" | "b";
   }>;
 }

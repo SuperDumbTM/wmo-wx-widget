@@ -11,10 +11,10 @@ export default function Present({weather}: {weather: PresentWeatherData}) {
       </div>
 
       <div className="flex justify-around items-center my-1">
-        <img src={weather.icon!} width={60} height={40} alt="Weather Icon" />
+        <img src={weather.icon!} width={60} height={40} />
 
         <span className="font-medium text-xl">
-          {`${weather.temp || "--"}${weather.tempUnit}`}
+          {`${weather.temp.val || "--"}${weather.temp.unit}`}
         </span>
 
         <div className="flex mx-2" style={{height: "2.5rem"}}>
