@@ -15,7 +15,11 @@
         "maxForecastPeriod": "Max Forecast Period",
         "maxForecastPeriodHelp": "The maximum forecast count in days. However, actual amount will be depends on the data source.",
         "generate": "Generate",
-        "emptyCityValidation": "Please seletc a city first."
+        "emptyCityValidation": "Please seletc a city first.",
+        "displayedComponent": "Displayed Component",
+        "presentWeather": "Present Weather",
+        "futureWeather": "Future Weather (Forecast)",
+        "unitSettings": "Unit Setting"
     },
     "nav": {
         "home": "Home",

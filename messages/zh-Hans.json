@@ -5,7 +5,6 @@
         "language": "语言",
         "city": "城市",
         "displaySettings": "显示设定",
-        "display_settings_help": "",
         "temperatureUnit": "温度单位",
         "celsius": "摄氏度",
         "fahrenheit": "华氏度",
@@ -16,7 +15,11 @@
         "maxForecastPeriod": "最多预测日数",
         "maxForecastPeriodHelp": "最多预测数量（以天为单位）。然而，实际预测数量将取决于数据来源。",
         "generate": "产生",
-        "emptyCityValidation": "请先选择城市。"
+        "emptyCityValidation": "请先选择城市。",
+        "displayedComponent": "显示部件",
+        "presentWeather": "天气实况",
+        "futureWeather": "天气预报",
+        "unitSettings": "单位设定"
     },
     "nav": {
         "home": "主页",

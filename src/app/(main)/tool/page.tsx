@@ -22,6 +22,8 @@ export default function Page() {
   >([]);
 
   const [formData, setFormData] = useState({
+    present: "y",
+    future: "y",
     align: "start",
     city: "",
     days: "5",
@@ -147,18 +149,21 @@ export default function Page() {
 
             <div className="mt-6 space-y-4">
               <fieldset>
-                <legend className="text-base">{t("temperatureUnit")}</legend>
+                <legend className="text-base">{t("displayedComponent")}</legend>
                 <p className="mt-1 text-sm text-gray-500"></p>
 
                 <div className="flex mt-2">
                   <div className="flex items-center me-4">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="unit"
-                      value="C"
-                      checked={formData.unit == "C"}
+                      value="present"
+                      checked={formData.present == "y"}
                       onChange={(e) =>
-                        setFormData({...formData, unit: e.target.value})
+                        setFormData({
+                          ...formData,
+                          present: formData.present == "y" ? "n" : "y",
+                        })
                       }
                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
@@ -166,26 +171,29 @@ export default function Page() {
                       htmlFor="inline-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      {t("celsius")} (°C)
+                      {t("presentWeather")}
                     </label>
                   </div>
 
                   <div className="flex items-center me-4">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="unit"
-                      value="F"
-                      checked={formData.unit == "F"}
+                      value="future"
+                      checked={formData.future == "y"}
                       onChange={(e) =>
-                        setFormData({...formData, unit: e.target.value})
+                        setFormData({
+                          ...formData,
+                          future: formData.future == "y" ? "n" : "y",
+                        })
                       }
                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                     <label
-                      htmlFor="inline-2-checkbox"
+                      htmlFor="inline-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
-                      {t("fahrenheit")} (°F)
+                      {t("futureWeather")}
                     </label>
                   </div>
                 </div>
@@ -308,6 +316,60 @@ export default function Page() {
                     >
                       +
                     </button>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div className="border-b border-gray-900/10 pb-4">
+            <h2 className="text-xl font-bold text-gray-900">
+              {t("unitSettings")}
+            </h2>
+            <p className="mt-1 text-sm text-gray-400"></p>
+
+            <div className="mt-6 space-y-4">
+              <fieldset>
+                <legend className="text-base">{t("temperatureUnit")}</legend>
+                <p className="mt-1 text-sm text-gray-500"></p>
+
+                <div className="flex mt-2">
+                  <div className="flex items-center me-4">
+                    <input
+                      type="radio"
+                      name="unit"
+                      value="C"
+                      checked={formData.unit == "C"}
+                      onChange={(e) =>
+                        setFormData({...formData, unit: e.target.value})
+                      }
+                      className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                    <label
+                      htmlFor="inline-checkbox"
+                      className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {t("celsius")} (°C)
+                    </label>
+                  </div>
+
+                  <div className="flex items-center me-4">
+                    <input
+                      type="radio"
+                      name="unit"
+                      value="F"
+                      checked={formData.unit == "F"}
+                      onChange={(e) =>
+                        setFormData({...formData, unit: e.target.value})
+                      }
+                      className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                    <label
+                      htmlFor="inline-2-checkbox"
+                      className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {t("fahrenheit")} (°F)
+                    </label>
                   </div>
                 </div>
               </fieldset>
