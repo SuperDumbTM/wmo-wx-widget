@@ -3,8 +3,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import {Locale, TempUnit} from "@/libs/wmo/enums";
 import * as wmo from "@/libs/wmo/wmo";
 import {Metadata} from "next";
-import HorizontalLayout from "./components/horizontal_layout";
-import VerticalLayout from "./components/vertical_layout";
+import {default as HForecasts} from "./components/horizontal/forecasts";
+import {default as HPresent} from "./components/horizontal/present";
+import {default as VForecasts} from "./components/vertical/forecasts";
+import {default as VPresent} from "./components/vertical/present";
 
 export async function generateMetadata({
   params,
@@ -34,6 +36,10 @@ export default async function Page({
     TempUnit[searchParams?.unit?.toUpperCase() as keyof typeof TempUnit] ||
     TempUnit["C"];
 
+  const visPresent = (searchParams?.present || "y").toLowerCase() == "y";
+
+  const visFuture = (searchParams?.future || "y").toLowerCase() == "y";
+
   const [pwx, wx] = await Promise.all([
     wmo.present(params.id, locale, unit),
     wmo.forecasts(
@@ -49,10 +55,31 @@ export default async function Page({
       className={`flex items-${searchParams?.align || "start"} min-h-screen`}
     >
       <div className="hidden md:block w-full">
-        <HorizontalLayout locale={locale} weather={pwx} forecast={wx} />
+        <div
+          className="flex flex-row justify-around items-center m-1 p-2"
+          style={{border: "1px lightgray solid", borderRadius: "5px"}}
+        >
+          {visPresent ? (
+            <div className={`mx-1 lg:mx-0 w-60 ${visFuture ? "border-r" : ""}`}>
+              <HPresent weather={pwx}></HPresent>
+            </div>
+          ) : null}
+
+          {visFuture ? (
+            <div className="flex flex-1 justify-center">
+              <HForecasts locale={locale} forecast={wx}></HForecasts>
+            </div>
+          ) : null}
+        </div>
       </div>
+
       <div className="block md:hidden w-full">
-        <VerticalLayout locale={locale} weather={pwx} forecast={wx} />
+        <div className="flex flex-col flex-nowrap">
+          {visPresent ? <VPresent weather={pwx}></VPresent> : null}
+          {visFuture ? (
+            <VForecasts locale={locale} forecast={wx}></VForecasts>
+          ) : null}
+        </div>
       </div>
     </div>
   );
