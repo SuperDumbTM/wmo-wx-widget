@@ -43,14 +43,14 @@ export default async function Forecasts({
           className="flex flex-col justify-center items-center"
           style={{minWidth: "30%"}}
         >
-          <span className="text-sky-600 mx-1">
+          <div className="flex justify-between mx-1 min-w-12 text-sky-600">
             <i className="bi bi-thermometer-low"></i>
             {`${wx.temp.min.val ?? "--"}${wx.temp.min.unit}`}
-          </span>
-          <span className="text-red-600 mx-1">
+          </div>
+          <div className="flex justify-between mx-1 min-w-12 text-red-600">
             <i className="bi bi-thermometer-high"></i>
             {`${wx.temp.max.val ?? "--"}${wx.temp.max.unit}`}
-          </span>
+          </div>
         </div>
       </div>
     );

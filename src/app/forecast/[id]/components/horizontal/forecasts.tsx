@@ -49,7 +49,7 @@ export default async function Forecasts({
         </div>
 
         <div className="flex flex-col lg:flex-row justify-center items-center">
-          <span className="text-sky-600 mx-1">
+          <div className="flex justify-between mx-1 min-w-12 text-sky-600">
             {forecast.forecasts.data.length >= 7 ? (
               ""
             ) : (
@@ -57,15 +57,16 @@ export default async function Forecasts({
             )}
 
             {`${wx.temp.min.val ?? "--"}${wx.temp.min.unit}`}
-          </span>
-          <span className="text-red-600 mx-1">
+          </div>
+          <div className="flex justify-between mx-1 min-w-12 text-red-600">
             {forecast.forecasts.data.length >= 7 ? (
               ""
             ) : (
               <i className="bi bi-thermometer-high"></i>
             )}
+
             {`${wx.temp.max.val ?? "--"}${wx.temp.max.unit}`}
-          </span>
+          </div>
         </div>
       </div>
     );
