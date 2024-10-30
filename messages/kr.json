@@ -17,6 +17,11 @@
         "generate": "생성",
         "emptyCityValidation": "먼저 도시를 선택하세요."
     },
+    "meta": {
+        "title": "wmo-wx-widget",
+        "titleForecast": "{location} 날씨",
+        "description": "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source."
+    },
     "nav": {
         "home": "홈 페이지",
         "tool": "도구",

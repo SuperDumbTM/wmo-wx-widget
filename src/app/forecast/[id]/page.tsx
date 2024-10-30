@@ -7,14 +7,34 @@ import {default as HForecasts} from "./components/horizontal/forecasts";
 import {default as HPresent} from "./components/horizontal/present";
 import {default as VForecasts} from "./components/vertical/forecasts";
 import {default as VPresent} from "./components/vertical/present";
+import {getTranslations} from "next-intl/server";
+
+function parseLocale(locale: string | null | undefined): Locale {
+  if (!locale) {
+    return Locale["En"];
+  }
+  return (
+    Locale[
+      (locale[0].toUpperCase() +
+        locale.slice(1).toLowerCase()) as keyof typeof Locale
+    ] || Locale["En"]
+  );
+}
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: {id: number};
+  searchParams: {locale?: keyof typeof Locale};
 }): Promise<Metadata> {
+  const t = await getTranslations("meta");
   return {
-    title: (await wmo.city(params.id, Locale["En"]))?.name,
+    title: t("titleForecast", {
+      location:
+        (await wmo.city(params.id, parseLocale(searchParams.locale)))?.name ||
+        "N/A",
+    }),
   };
 }
 
@@ -25,12 +45,7 @@ export default async function Page({
   params: {id: number};
   searchParams?: {[key: string]: any};
 }) {
-  const locale =
-    Locale[
-      (searchParams?.locale &&
-        searchParams.locale[0].toUpperCase() +
-          searchParams.locale.slice(1).toLowerCase()) as keyof typeof Locale
-    ] || Locale["En"];
+  const locale = parseLocale(searchParams?.locale);
 
   const unit =
     TempUnit[searchParams?.unit?.toUpperCase() as keyof typeof TempUnit] ||

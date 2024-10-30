@@ -17,6 +17,11 @@
         "generate": "Générer",
         "emptyCityValidation": "Veuillez d'abord sélectionner une ville."
     },
+    "meta": {
+        "title": "wmo-wx-widget",
+        "titleForecast": "Météo {location}",
+        "description": "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source."
+    },
     "nav": {
         "home": "Page d'accueil",
         "tool": "Outil",

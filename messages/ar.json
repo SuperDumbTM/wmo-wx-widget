@@ -22,6 +22,11 @@
         "tool": "الأداة",
         "widgetDemo": "العرض التوضيحي"
     },
+    "meta": {
+        "title": "wmo-wx-widget",
+        "titleForecast": "طقس {location}",
+        "description": "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source."
+    },
     "weather": {
         "N": "N",
         "NNE": "NNE",

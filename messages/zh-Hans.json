@@ -21,6 +21,11 @@
         "futureWeather": "天气预报",
         "unitSettings": "单位设定"
     },
+    "meta": {
+        "title": "wmo-wx-widget",
+        "titleForecast": "{location}天气",
+        "description": "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source."
+    },
     "nav": {
         "home": "主页",
         "tool": "工具",

@@ -17,6 +17,11 @@
         "generate": "Gerar",
         "emptyCityValidation": "Seleccione primeiro uma cidade."
     },
+    "meta": {
+        "title": "wmo-wx-widget",
+        "titleForecast": "Meteorologia dos {location}",
+        "description": "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source."
+    },
     "nav": {
         "home": "Página inicial",
         "tool": "Ferramenta",
