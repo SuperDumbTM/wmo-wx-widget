@@ -97,7 +97,7 @@ export default function Navbar() {
           </button>
           {isDropdownOpen && (
             <div
-              className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg"
+              className="absolute right-0 z-10 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg"
               ref={dropDownRef}
             >
               <LocaleButtons></LocaleButtons>
