@@ -10,7 +10,7 @@ const inter = Inter({subsets: ["latin"]});
 export const metadata: Metadata = {
   title: "wmo-wx-widget",
   description:
-    "A self-hosted responsive weather widget that uses the World Meteorological Organization (WMO) as the data source.",
+    "A responsive, self-hosted weather widget that provide official weather information around the world.",
 };
 
 export default async function RootLayout({
