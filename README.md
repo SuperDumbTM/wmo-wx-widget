@@ -12,6 +12,7 @@
 -->
 <div align="center">
   
+  [![Tag][tag-shield]][tag-url]
   [![Contributors][contributors-shield]][contributors-url]
   [![Forks][forks-shield]][forks-url]
   [![Stargazers][stars-shield]][stars-url]
@@ -81,9 +82,9 @@ The purpose of this project is to provide weather information form a trustworthy
 
 ### Built With
 
-* [<img src="https://img.shields.io/badge/bootstrap%20icons-7532fa?style=for-the-badge&logo=bootstrap&logoColor=white">](https://icons.getbootstrap.com/)
-* [<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">](https://nextjs.org/)
-* [<img src="https://img.shields.io/badge/tailwindcss-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white">](https://tailwindcss.com/)
+[<img src="https://img.shields.io/badge/bootstrap%20icons-7532fa?style=for-the-badge&logo=bootstrap&logoColor=white">](https://icons.getbootstrap.com/)
+[<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">](https://nextjs.org/)
+[<img src="https://img.shields.io/badge/tailwindcss-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white">](https://tailwindcss.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -161,6 +162,8 @@ Embedding the widget in note taking app should work like a charm.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[tag-url]: https://github.com/SuperDumbTM/wmo-wx-widget/releases
+[tag-shield]: https://img.shields.io/github/v/tag/SuperDumbTM/wmo-wx-widget?style=for-the-badge&label=LATEST&color=%23B1B1B1
 [contributors-shield]: https://img.shields.io/github/contributors/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
 [contributors-url]: https://github.com/SuperDumbTM/wmo-wx-widget/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/SuperDumbTM/wmo-wx-widget.svg?style=for-the-badge
